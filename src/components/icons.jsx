@@ -117,3 +117,41 @@ export function IconArrowRight(props) {
     </svg>
   )
 }
+
+export function IconCoins(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" {...common} {...props}>
+      <ellipse cx="12" cy="6.6" rx="7" ry="2.8" />
+      <path d="M5 6.6v5c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8v-5" />
+      <path d="M5 11.6v5c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8v-5" />
+    </svg>
+  )
+}
+
+export function IconLayers(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" {...common} {...props}>
+      <path d="M12 3.3 20.5 8 12 12.7 3.5 8 12 3.3Z" />
+      <path d="M3.5 12 12 16.7 20.5 12" />
+      <path d="M3.5 16 12 20.7 20.5 16" />
+    </svg>
+  )
+}
+
+export function IconRare(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" {...common} {...props}>
+      <circle cx="12" cy="12" r="9" strokeDasharray="2.5 4.5" />
+      <circle cx="12" cy="9.5" r="3" />
+      <path d="M6.7 18.2c.9-3 3-4.5 5.3-4.5s4.4 1.5 5.3 4.5" />
+    </svg>
+  )
+}
+
+export function IconArrowUp(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} {...props}>
+      <path d="M12 19V5M6 11l6-6 6 6" />
+    </svg>
+  )
+}
