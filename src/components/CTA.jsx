@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Parallax from './Parallax.jsx'
 
 export default function CTA() {
   return (
@@ -11,7 +12,8 @@ export default function CTA() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="glow-orb cta-orb" />
+          <Parallax className="glow-orb cta-orb" range={70} />
+          <Parallax className="glow-orb glow-orb-sm cta-orb-2" range={-45} />
           <p className="eyebrow">Membership is by invitation only</p>
           <h2 className="section-title">
             Ready to <span className="gold-text">empower founders</span> and grow with them?
@@ -20,7 +22,7 @@ export default function CTA() {
             To request an invitation, connect with your DAN contact. Established under DraperU India.
           </p>
           <div className="hero-actions">
-            <a href="#membership" className="btn btn-primary">Request an Invitation</a>
+            <a href="#membership" className="btn btn-primary">Apply for Membership</a>
             <a href="#why-dan" className="btn btn-ghost">Learn More</a>
           </div>
         </motion.div>

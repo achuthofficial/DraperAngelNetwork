@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Parallax from './Parallax.jsx'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -8,7 +9,8 @@ const fadeUp = {
 export default function Commitment() {
   return (
     <section className="section commitment" id="community">
-      <div className="glow-orb commitment-orb" />
+      <Parallax className="glow-orb commitment-orb" range={90} />
+      <Parallax className="glow-orb glow-orb-sm commitment-orb-2" range={-60} />
       <div className="container commitment-grid">
         <motion.div
           initial="hidden"

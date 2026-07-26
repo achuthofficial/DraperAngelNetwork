@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { IconCheck, IconArrowRight } from './icons.jsx'
+import Parallax from './Parallax.jsx'
 
 const GROUPS = [
   {
@@ -9,6 +10,10 @@ const GROUPS = [
   {
     label: 'Operators & Experts',
     people: ['CXOs', 'Senior Professionals', 'Corporate Execs', 'Tech Leaders', 'Doctors'],
+  },
+  {
+    label: 'Investor Experience',
+    people: ['Existing Angel Investors', 'First-Time Angels'],
   },
 ]
 
@@ -24,7 +29,8 @@ const item = {
 export default function WhoShouldJoin() {
   return (
     <section className="section who-should-join">
-      <div className="glow-orb who-orb" />
+      <Parallax className="glow-orb who-orb" range={95} />
+      <Parallax className="glow-orb glow-orb-sm who-orb-2" range={-50} />
       <div className="container who-grid">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -42,6 +48,10 @@ export default function WhoShouldJoin() {
           <a href="#membership" className="btn btn-ghost who-cta">
             Check Your Fit <IconArrowRight />
           </a>
+          <p className="who-qualifier">
+            Membership is designed for individuals who understand that startup investing is
+            high-risk, illiquid and long-term.
+          </p>
         </motion.div>
 
         <div className="who-panel card">

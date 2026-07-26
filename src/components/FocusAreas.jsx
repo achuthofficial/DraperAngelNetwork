@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Parallax from './Parallax.jsx'
 
 const STAGES = [
   { n: '01', label: 'Idea-stage' },
@@ -27,6 +28,7 @@ export default function FocusAreas() {
 
   return (
     <section className="section focus-areas" id="focus-areas">
+      <Parallax className="glow-orb focus-orb" range={90} />
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

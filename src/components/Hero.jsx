@@ -1,10 +1,20 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import ParticleField from './ParticleField.jsx'
 
 export default function Hero() {
+  const sectionRef = useRef(null)
+  const reduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
+
+  const mediaY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [0, 140])
+  const sceneY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [0, 70])
+  const contentY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [0, 110])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
+
   return (
-    <section className="hero" id="top">
-      <div className="hero-media">
+    <section className="hero" id="top" ref={sectionRef}>
+      <motion.div className="hero-media" style={{ y: mediaY }}>
         <video
           className="hero-video"
           autoPlay
@@ -17,20 +27,20 @@ export default function Hero() {
         </video>
         <div className="hero-overlay" />
         <div className="hero-vignette" />
-      </div>
+      </motion.div>
 
-      <div className="hero-scene">
+      <motion.div className="hero-scene" style={{ y: sceneY }}>
         <ParticleField />
-      </div>
+      </motion.div>
 
-      <div className="container hero-content">
+      <motion.div className="container hero-content" style={{ y: contentY, opacity: contentOpacity }}>
         <motion.p
           className="eyebrow"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          DraperU India Presents
+          India's Curated Angel Network
         </motion.p>
 
         <motion.h1
@@ -49,7 +59,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          Empowering Angels. Accelerating Founders.
+          Back India's Next Generation of Founders
         </motion.p>
 
         <motion.p
@@ -58,18 +68,28 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.62 }}
         >
-          An invite-only angel investment community established under DraperU India  
-          bridging the ₹5L &ndash; ₹50L funding gap that stands between an idea and India's next great company.
+          Join an invite-only network of up to 500 investors  HNIs, NRIs, family offices and
+          operators  gaining curated startup access, investor education and connections
+          across the Draper ecosystem.
+        </motion.p>
+
+        <motion.p
+          className="hero-pricing-line"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.7 }}
+        >
+          <strong>₹50,000</strong> annual membership <span className="dot-sep">•</span> Founding memberships limited to 25
         </motion.p>
 
         <motion.div
           className="hero-actions"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.74 }}
+          transition={{ duration: 0.8, delay: 0.78 }}
         >
-          <a href="#membership" className="btn btn-primary">Request an Invitation</a>
-          <a href="#why-dan" className="btn btn-ghost">Explore DAN</a>
+          <a href="#membership" className="btn btn-primary">Apply for Membership</a>
+          <a href="#get-started" className="btn btn-ghost">Submit Your Startup</a>
         </motion.div>
 
         <motion.div
@@ -78,11 +98,11 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          <div><strong>₹5L&ndash;₹50L</strong><span>Funding gap we close</span></div>
+          <div><strong>500</strong><span>Investor network cap</span></div>
           <div><strong>2&ndash;3</strong><span>Startups showcased monthly</span></div>
-          <div><strong>Invite&#8209;only</strong><span>Curated member community</span></div>
+          <div><strong>₹5L&ndash;₹50L</strong><span>Funding gap we close</span></div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* <motion.div
         className="hero-scroll-cue"

@@ -20,7 +20,7 @@ export default function Footer() {
                 <p>Draper Angel Network</p>
               </div>
             </a>
-            <p className="footer-tagline">Empowering Angels. Accelerating Founders.</p>
+            <p className="footer-tagline">Back India's Next Generation of Founders.</p>
             <p className="footer-desc">
               An invite-only angel investment community established under DraperU India,
               bridging the early-stage funding gap in India's startup ecosystem.
@@ -47,15 +47,23 @@ export default function Footer() {
           </div>
 
           <div className="footer-cta-col">
-            <span className="footer-col-label">Request an Invitation</span>
+            <span className="footer-col-label">Apply for Membership</span>
             <p className="footer-cta-note">
-              Membership is by invitation only. Connect with your DAN contact to get started.
+              Membership is invite-curated. Apply and the DAN team will follow up on next steps.
             </p>
             <a href="#membership" className="btn btn-primary btn-sm footer-cta-btn">
-              Request an Invitation
+              Apply for Membership
             </a>
           </div>
         </motion.div>
+
+        <p className="footer-disclaimer">
+          DAN is a membership and ecosystem platform. Membership does not constitute investment
+          advice, portfolio management, an offer of securities, a solicitation to invest, or a
+          guarantee of funding or returns. Startup investments involve substantial risk,
+          including the possible loss of the entire investment. Members must conduct
+          independent legal, financial and tax diligence.
+        </p>
 
         <div className="footer-bottom">
           <p className="footer-copy">

@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion'
 import TiltCard from './TiltCard.jsx'
+import Parallax from './Parallax.jsx'
 import { IconArrowRight, IconCheck } from './icons.jsx'
 
 const INCLUDES = [
-  'Startup showcase access',
-  'Investor education sessions',
-  'Curated deal flow',
-  'Community access',
-  'Networking events',
-  'Investor updates',
+  '12-month DAN membership',
+  '2–3 curated startup presentations monthly',
+  'Live virtual investor sessions',
+  'Recordings of eligible sessions',
+  'Angel-investing masterclasses',
+  'Investor–founder networking',
+  'DraperU India ecosystem access',
+  'Selected offline investor gatherings',
+  'Member-only community access',
 ]
 
 const TRUST_POINTS = [
@@ -20,7 +24,8 @@ const TRUST_POINTS = [
 export default function Membership() {
   return (
     <section className="section membership" id="membership">
-      <div className="glow-orb membership-orb" />
+      <Parallax className="glow-orb membership-orb" range={100} />
+      <Parallax className="glow-orb glow-orb-sm membership-orb-2" range={-55} />
       <div className="container membership-grid">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -68,10 +73,14 @@ export default function Membership() {
               ))}
             </ul>
 
-            <a href="#top" className="btn btn-primary pricing-cta">
-              Request an Invitation <IconArrowRight />
+            <a href="#get-started" className="btn btn-primary pricing-cta">
+              Apply for Membership <IconArrowRight />
             </a>
-            <p className="pricing-note">Annual membership fee. No mandatory investment commitment.</p>
+            <p className="pricing-note">
+              Annual membership fee. No mandatory investment commitment. The fee does not
+              constitute an investment, guarantee allocation in any startup, or promise
+              financial returns.
+            </p>
           </motion.div>
         </TiltCard>
       </div>

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import Parallax from './Parallax.jsx'
 import { IconPlay, IconShare, IconCheck } from './icons.jsx'
 
 export default function VideoShowcase() {
@@ -41,6 +42,7 @@ export default function VideoShowcase() {
 
   return (
     <section className="section video-showcase" id="showcase">
+      <Parallax className="glow-orb showcase-orb" range={85} />
       <div className="container">
         <motion.div
           className="who-head"

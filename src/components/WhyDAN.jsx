@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import TiltCard from './TiltCard.jsx'
+import Parallax from './Parallax.jsx'
 import { IconLayers, IconCoins, IconRare, IconArrowRight } from './icons.jsx'
 
 const STATS = [
@@ -11,6 +12,8 @@ const STATS = [
 export default function WhyDAN() {
   return (
     <section className="section why-dan" id="why-dan">
+      <Parallax className="glow-orb why-dan-orb" range={90} />
+      <Parallax className="glow-orb glow-orb-sm why-dan-orb-2" range={-55} />
       <div className="container">
         <motion.div
           className="why-dan-head"

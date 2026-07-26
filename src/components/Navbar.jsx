@@ -5,6 +5,7 @@ import ThemeToggle from './ThemeToggle.jsx'
 const LINKS = [
   { href: '#why-dan', label: 'Why DAN' },
   { href: '#membership', label: 'Membership' },
+  { href: '#founding-member', label: 'Founding Member' },
   { href: '#focus-areas', label: 'Focus Areas' },
   { href: '#community', label: 'Community' },
 ]
@@ -43,7 +44,7 @@ export default function Navbar() {
 
         <div className="navbar-actions">
           <ThemeToggle />
-          <a href="#membership" className="btn btn-primary btn-sm">Request Invitation</a>
+          <a href="#membership" className="btn btn-primary btn-sm">Apply for Membership</a>
           <button className="navbar-burger" onClick={() => setOpen((o) => !o)} aria-label="Toggle menu">
             <span className={open ? 'open' : ''} />
           </button>
@@ -60,7 +61,7 @@ export default function Navbar() {
           {LINKS.map((l) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
-          <a href="#membership" className="btn btn-primary" onClick={() => setOpen(false)}>Request Invitation</a>
+          <a href="#membership" className="btn btn-primary" onClick={() => setOpen(false)}>Apply for Membership</a>
         </motion.div>
       )}
     </motion.header>

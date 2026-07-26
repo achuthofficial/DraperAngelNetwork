@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Parallax from './Parallax.jsx'
 
 const FACTS = [
   'Established under DraperU India',
@@ -10,6 +11,8 @@ const FACTS = [
 export default function AboutStory() {
   return (
     <section className="section about-story">
+      <Parallax className="glow-orb about-orb" range={85} />
+      <Parallax className="glow-orb glow-orb-sm about-orb-2" range={-50} />
       <div className="container about-grid">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
