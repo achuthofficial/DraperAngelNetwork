@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { IconArrowUp } from './icons.jsx'
 
 export default function Footer() {
@@ -32,6 +33,7 @@ export default function Footer() {
             <nav className="footer-links">
               <a href="#why-dan">Why DAN</a>
               <a href="#membership">Membership</a>
+              <a href="#draper-network">The Draper Network</a>
               <a href="#focus-areas">Focus Areas</a>
               <a href="#community">Community</a>
             </nav>
@@ -42,7 +44,9 @@ export default function Footer() {
             <nav className="footer-links">
               <a href="#get-started">Join as an Investor</a>
               <a href="#get-started">Join as a Founder</a>
-              <a href="#get-started">Member Login</a>
+              <Link to="/login/investor">Investor Login</Link>
+              <Link to="/login/founder">Founder Login</Link>
+              <Link to="/login/member">Member Login</Link>
             </nav>
           </div>
 

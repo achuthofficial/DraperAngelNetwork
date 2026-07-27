@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import ThemeToggle from './ThemeToggle.jsx'
+import { Link } from 'react-router-dom'
 
 const LINKS = [
   { href: '#why-dan', label: 'Why DAN' },
@@ -43,7 +43,7 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <ThemeToggle />
+          <Link to="/login/member" className="navbar-login-link">Log in</Link>
           <a href="#membership" className="btn btn-primary btn-sm">Apply for Membership</a>
           <button className="navbar-burger" onClick={() => setOpen((o) => !o)} aria-label="Toggle menu">
             <span className={open ? 'open' : ''} />
@@ -61,6 +61,7 @@ export default function Navbar() {
           {LINKS.map((l) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
+          <Link to="/login/member" onClick={() => setOpen(false)}>Log in</Link>
           <a href="#membership" className="btn btn-primary" onClick={() => setOpen(false)}>Apply for Membership</a>
         </motion.div>
       )}

@@ -39,6 +39,20 @@ export default function Pillars() {
           </p>
         </motion.div>
 
+        <motion.div
+          className="pillars-photo"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8 }}
+        >
+          <img
+            src="/images/draper/india-codex-stage.jpeg"
+            alt="Founders and investors gathered for a live demo on the DraperU India campus"
+            loading="lazy"
+          />
+        </motion.div>
+
         <div className="pillars-grid">
           {PILLARS.map(({ icon: Icon, title, desc }, i) => (
             <motion.div

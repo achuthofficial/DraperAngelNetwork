@@ -55,6 +55,13 @@ export default function WhoShouldJoin() {
         </motion.div>
 
         <div className="who-panel card">
+          <div className="who-panel-photo">
+            <img
+              src="/images/draper/echai-group-photo.jpeg"
+              alt="Founders and community members at a DraperU India session"
+              loading="lazy"
+            />
+          </div>
           {GROUPS.map((group) => (
             <div className="who-group" key={group.label}>
               <span className="who-group-label">{group.label}</span>

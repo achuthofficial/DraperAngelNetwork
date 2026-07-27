@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import TiltCard from './TiltCard.jsx'
 import { IconInvestor, IconFounder, IconMember, IconCheck, IconArrowRight } from './icons.jsx'
 
@@ -10,6 +11,7 @@ const PATHS = [
     desc: 'Get curated access to screened startups, monthly showcases and investor education sessions.',
     highlights: ['Curated deal flow', 'Monthly startup showcases', 'Investor education sessions'],
     cta: 'Apply as an Investor',
+    loginRole: 'investor',
   },
   {
     icon: IconFounder,
@@ -18,6 +20,7 @@ const PATHS = [
     desc: 'Pitch your startup to a curated network of angels, HNIs, family offices and ecosystem leaders.',
     highlights: ['A founder showcase slot', 'Warm investor introductions', 'Feedback from operators'],
     cta: 'Apply as a Founder',
+    loginRole: 'founder',
   },
 ]
 
@@ -39,8 +42,20 @@ export default function AccessPortal() {
           </p>
         </motion.div>
 
+        <motion.div
+          className="portal-video"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8 }}
+        >
+          <video autoPlay muted loop playsInline preload="auto">
+            <source src="/videos/investor-founder-network.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
+
         <div className="portal-grid">
-          {PATHS.map(({ icon: Icon, tag, title, desc, highlights, cta }, i) => (
+          {PATHS.map(({ icon: Icon, tag, title, desc, highlights, cta, loginRole }, i) => (
             <TiltCard key={title} className="portal-card" maxTilt={6}>
               <motion.div
                 initial={{ opacity: 0, y: 34 }}
@@ -60,6 +75,9 @@ export default function AccessPortal() {
                 <a href="#membership" className="btn btn-primary portal-cta">
                   {cta} <IconArrowRight />
                 </a>
+                <Link to={`/login/${loginRole}`} className="portal-login-link">
+                  Already applied? Log in
+                </Link>
               </motion.div>
             </TiltCard>
           ))}
@@ -79,9 +97,9 @@ export default function AccessPortal() {
               <p>Sign in to access showcases, deal flow, resources and community updates.</p>
             </div>
           </div>
-          <a href="#top" className="btn btn-ghost member-bar-cta">
+          <Link to="/login/member" className="btn btn-ghost member-bar-cta">
             Member Login <IconArrowRight />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

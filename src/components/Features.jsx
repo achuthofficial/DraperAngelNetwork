@@ -2,31 +2,33 @@ import { motion } from 'framer-motion'
 import TiltCard from './TiltCard.jsx'
 import { IconCompass, IconShowcase, IconBook, IconNetwork, IconShield, IconArrowRight } from './icons.jsx'
 
-const PRIMARY = [
+const FEATURES = [
   {
+    area: 'a',
     icon: IconCompass,
     title: 'Curated Startup Access',
-    desc: 'Screened idea-stage and early-stage startups from across India, evaluated before reaching the network.',
+    desc: 'Screened idea-stage and early-stage startups from across India, evaluated before they ever reach the network.',
   },
   {
+    area: 'b',
     icon: IconShowcase,
     title: 'Monthly Startup Showcases',
     desc: '2–3 startups every month, founder pitches, product demos and live investor Q&A.',
   },
-]
-
-const SECONDARY = [
   {
+    area: 'c',
     icon: IconBook,
     title: 'Investor Education',
     desc: 'Sessions on evaluation, due diligence, valuations, term sheets, cap tables and SAFE notes.',
   },
   {
+    area: 'd',
     icon: IconNetwork,
-    title: 'Access to Ecosystem Leaders',
+    title: 'Ecosystem Leaders',
     desc: 'Direct interaction with founders, VCs, mentors and the wider DraperU India network.',
   },
   {
+    area: 'e',
     icon: IconShield,
     title: 'A Trusted Community',
     desc: 'Belong to an active network of entrepreneurs, investors, founders and industry leaders.',
@@ -51,34 +53,19 @@ export default function Features() {
           </p>
         </motion.div>
 
-        <div className="features-grid-primary">
-          {PRIMARY.map(({ icon: Icon, title, desc }, i) => (
-            <TiltCard key={title} className="feature-card feature-card-primary" maxTilt={6}>
+        <div className="bento-grid">
+          {FEATURES.map(({ area, icon: Icon, title, desc }, i) => (
+            <TiltCard
+              key={title}
+              className={`feature-card card bento-${area}`}
+              maxTilt={area === 'a' ? 5 : 7}
+            >
               <motion.div
                 initial={{ opacity: 0, y: 34 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+                transition={{ duration: 0.6, delay: i * 0.08 }}
               >
-                <span className="feature-index">{`0${i + 1}`}</span>
-                <span className="feature-icon"><Icon /></span>
-                <h3>{title}</h3>
-                <p>{desc}</p>
-              </motion.div>
-            </TiltCard>
-          ))}
-        </div>
-
-        <div className="features-grid">
-          {SECONDARY.map(({ icon: Icon, title, desc }, i) => (
-            <TiltCard key={title} className="feature-card" maxTilt={7}>
-              <motion.div
-                initial={{ opacity: 0, y: 34 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-              >
-                <span className="feature-index">{`0${i + 3}`}</span>
                 <span className="feature-icon"><Icon /></span>
                 <h3>{title}</h3>
                 <p>{desc}</p>

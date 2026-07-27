@@ -1,6 +1,7 @@
 import { useRef } from 'react'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from 'framer-motion'
 import ParticleField from './ParticleField.jsx'
+import CountUp from './CountUp.jsx'
 
 export default function Hero() {
   const sectionRef = useRef(null)
@@ -12,8 +13,18 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [0, 110])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
 
+  const mouseX = useMotionValue(0)
+  const mouseXSpring = useSpring(mouseX, { stiffness: 60, damping: 20 })
+  const sceneX = useTransform(mouseXSpring, [-0.5, 0.5], reduceMotion ? [0, 0] : [-24, 24])
+
+  function handleHeroMouseMove(e) {
+    if (reduceMotion || !sectionRef.current) return
+    const rect = sectionRef.current.getBoundingClientRect()
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
+  }
+
   return (
-    <section className="hero" id="top" ref={sectionRef}>
+    <section className="hero" id="top" ref={sectionRef} onMouseMove={handleHeroMouseMove}>
       <motion.div className="hero-media" style={{ y: mediaY }}>
         <video
           className="hero-video"
@@ -29,7 +40,7 @@ export default function Hero() {
         <div className="hero-vignette" />
       </motion.div>
 
-      <motion.div className="hero-scene" style={{ y: sceneY }}>
+      <motion.div className="hero-scene" style={{ y: sceneY, x: sceneX }}>
         <ParticleField />
       </motion.div>
 
@@ -98,7 +109,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          <div><strong>500</strong><span>Investor network cap</span></div>
+          <div><strong><CountUp to={500} /></strong><span>Investor network cap</span></div>
           <div><strong>2&ndash;3</strong><span>Startups showcased monthly</span></div>
           <div><strong>₹5L&ndash;₹50L</strong><span>Funding gap we close</span></div>
         </motion.div>

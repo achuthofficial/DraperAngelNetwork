@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import TiltCard from './TiltCard.jsx'
 import Parallax from './Parallax.jsx'
+import CountUp from './CountUp.jsx'
 import { IconArrowRight, IconCheck } from './icons.jsx'
 
 const INCLUDES = [
@@ -48,7 +49,7 @@ export default function Membership() {
           </ul>
         </motion.div>
 
-        <TiltCard className="pricing-card" maxTilt={6} glare={false}>
+        <TiltCard className="pricing-card" maxTilt={6}>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +62,7 @@ export default function Membership() {
             <div className="pricing-row">
               <span className="pricing-strike">₹50,000</span>
               <div className="pricing-amount">
-                ₹29,500 <small>+ applicable taxes / year</small>
+                <CountUp to={29500} prefix="₹" /> <small>+ applicable taxes / year</small>
               </div>
             </div>
 

@@ -148,6 +148,85 @@ export function IconRare(props) {
   )
 }
 
+export function IconGlobe(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" {...common} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <ellipse cx="12" cy="12" rx="4" ry="9" />
+      <path d="M3 12h18M4.5 7.5h15M4.5 16.5h15" />
+    </svg>
+  )
+}
+
+export function IconTarget(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" {...common} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.2" fill="var(--gold)" />
+    </svg>
+  )
+}
+
+export function IconLinkedIn(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" {...common} {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <circle cx="7.5" cy="7.6" r="0.9" fill="var(--gold)" stroke="none" />
+      <path d="M7.5 10.6v6.4" />
+      <path d="M11.3 17v-3.7c0-1.5 1-2.4 2.2-2.4 1.2 0 2 .8 2 2.3V17" />
+      <path d="M11.3 10.6V17" />
+    </svg>
+  )
+}
+
+export function IconMail(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="17" height="17" {...common} {...props}>
+      <rect x="2.5" y="5" width="19" height="14" rx="2.5" />
+      <path d="M3.5 6.5 12 13l8.5-6.5" />
+    </svg>
+  )
+}
+
+export function IconLock(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="17" height="17" {...common} {...props}>
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2.2" />
+      <path d="M7.5 10.5V7.8a4.5 4.5 0 0 1 9 0v2.7" />
+      <circle cx="12" cy="15.3" r="1.4" fill="var(--gold)" stroke="none" />
+    </svg>
+  )
+}
+
+export function IconEye(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" {...common} {...props}>
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
+
+export function IconEyeOff(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" {...common} {...props}>
+      <path d="M3.5 3.5l17 17" />
+      <path d="M10.6 5.7C11.05 5.6 11.51 5.5 12 5.5c6 0 9.5 6.5 9.5 6.5a17.5 17.5 0 0 1-3.35 4.15M7.4 6.9C4.7 8.4 2.5 12 2.5 12s3.5 6.5 9.5 6.5c1.28 0 2.42-.3 3.42-.77" />
+      <path d="M9.9 10.1a3 3 0 0 0 4 4" />
+    </svg>
+  )
+}
+
+export function IconSpinner(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" strokeLinecap="round" {...props}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.25" strokeWidth="2.4" />
+      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.4" />
+    </svg>
+  )
+}
+
 export function IconArrowUp(props) {
   return (
     <svg viewBox="0 0 24 24" width="16" height="16" {...common} {...props}>
