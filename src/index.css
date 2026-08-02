@@ -107,6 +107,52 @@ button {
   pointer-events: none;
 }
 
+/* ===================== Loader ===================== */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--c-void);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.loader-mark {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+  color: var(--c-ink);
+}
+
+.loader-bar {
+  width: 220px;
+  height: 1px;
+  background: var(--c-rule);
+  position: relative;
+  overflow: hidden;
+}
+
+.loader-bar-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: var(--c-accent);
+  transition: width 0.1s linear;
+}
+
+.loader-readout {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--c-ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
 .bg-texture-wash {
   position: absolute;
   inset: 0;

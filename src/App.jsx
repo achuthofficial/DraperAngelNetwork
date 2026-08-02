@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import Loader from './components/chrome/Loader.jsx'
 
 function BackgroundTexture() {
   return (
@@ -17,6 +18,7 @@ function BackgroundTexture() {
 export default function App() {
   return (
     <>
+      <Loader />
       <BackgroundTexture />
       <Routes>
         <Route path="/" element={<Home />} />
