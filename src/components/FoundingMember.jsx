@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
 import { IconCheck, IconArrowRight } from './icons.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const PERKS = [
   'Founding Member designation',
@@ -25,7 +26,7 @@ export default function FoundingMember() {
         >
           <p className="eyebrow">Limited to the First 25 Members</p>
           <h2 className="section-title">
-            Become a <span className="gold-text">Founding Member</span>
+            <Reveal>Become a <span className="gold-text">Founding Member</span></Reveal>
           </h2>
           <p className="section-lede" style={{ margin: '0 auto 30px' }}>
             DAN's founding cohort shapes the community from day one, a distinction that isn't

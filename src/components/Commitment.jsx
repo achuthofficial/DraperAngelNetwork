@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -20,7 +21,7 @@ export default function Commitment() {
         >
           <p className="eyebrow">Our Commitment</p>
           <h2 className="section-title">
-            A transparent, <span className="gold-text">founder-friendly</span> ecosystem.
+            <Reveal>A transparent, <span className="gold-text">founder-friendly</span> ecosystem.</Reveal>
           </h2>
           <p className="section-lede">
             We are committed to building a transparent, founder-friendly and investor-focused

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import TiltCard from './TiltCard.jsx'
 import { IconCompass, IconShowcase, IconBook, IconNetwork, IconShield, IconArrowRight } from './icons.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const FEATURES = [
   {
@@ -47,7 +48,7 @@ export default function Features() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">Membership Benefits</p>
-          <h2 className="section-title">What members receive</h2>
+          <h2 className="section-title"><Reveal>What members receive</Reveal></h2>
           <p className="section-lede" style={{ margin: '0 auto' }}>
             Everything a member needs to evaluate, invest and stay connected, from day one.
           </p>

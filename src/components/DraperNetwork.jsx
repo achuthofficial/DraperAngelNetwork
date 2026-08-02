@@ -3,6 +3,7 @@ import TiltCard from './TiltCard.jsx'
 import Parallax from './Parallax.jsx'
 import CountUp from './CountUp.jsx'
 import { IconCompass, IconGlobe, IconTarget, IconShowcase } from './icons.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const STATS = [
   { icon: IconCompass, value: '2012', label: 'Draper University founded by Tim Draper' },
@@ -25,7 +26,7 @@ export default function DraperNetwork() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">The Draper Network</p>
-          <h2 className="section-title">Backed by a global founder movement</h2>
+          <h2 className="section-title"><Reveal>Backed by a global founder movement</Reveal></h2>
           <p className="section-lede" style={{ margin: '0 auto' }}>
             DAN sits inside DraperU India, the Hyderabad campus of the global Draper Startup
             House network and part of Tim Draper's Draper University lineage. The same

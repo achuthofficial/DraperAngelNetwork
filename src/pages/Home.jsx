@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import ScrollProgress from '../components/ScrollProgress.jsx'
+import Ticker from '../components/chrome/Ticker.jsx'
+import ScrollReadout from '../components/chrome/ScrollReadout.jsx'
+import BackToTop from '../components/chrome/BackToTop.jsx'
+import PillNav from '../components/chrome/PillNav.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Hero from '../components/Hero.jsx'
 import Commitment from '../components/Commitment.jsx'
@@ -31,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-      <ScrollProgress />
+      <Ticker />
       <Navbar />
       <main>
         <Hero />
@@ -52,6 +55,9 @@ export default function Home() {
         <AccessPortal />
       </main>
       <Footer />
+      <ScrollReadout />
+      <BackToTop />
+      <PillNav />
     </>
   )
 }

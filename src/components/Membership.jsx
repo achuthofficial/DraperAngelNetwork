@@ -3,6 +3,7 @@ import TiltCard from './TiltCard.jsx'
 import Parallax from './Parallax.jsx'
 import CountUp from './CountUp.jsx'
 import { IconArrowRight, IconCheck } from './icons.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const INCLUDES = [
   '12-month DAN membership',
@@ -35,7 +36,7 @@ export default function Membership() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">Membership</p>
-          <h2 className="section-title">Join DAN</h2>
+          <h2 className="section-title"><Reveal>Join DAN</Reveal></h2>
           <p className="section-lede" style={{ marginBottom: 26 }}>
             No mandatory investment commitment, every member decides independently whether
             to invest in any opportunity presented. Membership is by invitation only; connect

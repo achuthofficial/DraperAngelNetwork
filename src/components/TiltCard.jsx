@@ -53,7 +53,7 @@ export default function TiltCard({ children, className = '', maxTilt = 10, glare
             opacity: glareOpacity,
             background: useTransform(
               [glarePosX, glarePosY],
-              ([gx, gy]) => `radial-gradient(circle at ${gx}% ${gy}%, rgba(212,175,55,0.28), transparent 60%)`
+              ([gx, gy]) => `radial-gradient(circle at ${gx}% ${gy}%, rgba(210,215,235,0.28), transparent 60%)`
             ),
           }}
         />

@@ -1,6 +1,9 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
 import TiltCard from './TiltCard.jsx'
 import Parallax from './Parallax.jsx'
+import Reveal from './motion/Reveal.jsx'
+import GapBridge from './GapBridge.jsx'
 import { IconLayers, IconCoins, IconRare, IconArrowRight } from './icons.jsx'
 
 const STATS = [
@@ -10,6 +13,23 @@ const STATS = [
 ]
 
 export default function WhyDAN() {
+  const spotRef = useRef(null)
+  const reduceMotion = useReducedMotion()
+  const mx = useMotionValue(50)
+  const my = useMotionValue(50)
+  const sx = useSpring(mx, { stiffness: 40, damping: 22 })
+  const sy = useSpring(my, { stiffness: 40, damping: 22 })
+  const spotlight = useTransform([sx, sy], ([x, y]) =>
+    `radial-gradient(520px circle at ${x}% ${y}%, rgba(var(--c-accent-rgb), 0.14), transparent 70%)`
+  )
+
+  function handleSpotMove(e) {
+    if (reduceMotion || !spotRef.current) return
+    const rect = spotRef.current.getBoundingClientRect()
+    mx.set(((e.clientX - rect.left) / rect.width) * 100)
+    my.set(((e.clientY - rect.top) / rect.height) * 100)
+  }
+
   return (
     <section className="section why-dan" id="why-dan">
       <Parallax className="glow-orb why-dan-orb" range={90} />
@@ -23,7 +43,7 @@ export default function WhyDAN() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">The Opportunity</p>
-          <h2 className="section-title">Why DAN</h2>
+          <h2 className="section-title"><Reveal>Why DAN</Reveal></h2>
           <p className="section-lede">
             Every year, thousands of startups struggle to raise their first ₹5L&ndash;₹50L,
             the capital needed to build, validate and prepare for institutional funding. DAN
@@ -55,15 +75,20 @@ export default function WhyDAN() {
           ))}
         </div>
 
-        <motion.p
-          className="why-dan-resolve"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <span className="gold-text">This is where DAN comes in.</span>
-        </motion.p>
+        <GapBridge />
+
+        <div className="spotlight-wrap" ref={spotRef} onMouseMove={handleSpotMove}>
+          <motion.div className="spotlight-bg" style={{ background: spotlight }} aria-hidden="true" />
+          <motion.p
+            className="why-dan-resolve"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <span className="gold-text">This is where DAN comes in.</span>
+          </motion.p>
+        </div>
       </div>
     </section>
   )

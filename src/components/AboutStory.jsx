@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const FACTS = [
   'Established under DraperU India',
@@ -22,7 +23,7 @@ export default function AboutStory() {
         >
           <p className="eyebrow">About DAN</p>
           <h2 className="section-title">
-            Born from DraperU India's <span className="gold-text">founder-first</span> philosophy.
+            <Reveal>Born from DraperU India's <span className="gold-text">founder-first</span> philosophy.</Reveal>
           </h2>
 
           <ul className="about-facts">

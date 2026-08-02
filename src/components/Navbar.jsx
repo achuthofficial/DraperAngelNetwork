@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
 const LINKS = [
@@ -13,6 +13,13 @@ const LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { scrollY } = useScroll()
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 800
+
+  const wordmarkScale = useTransform(scrollY, [0, vh], [1.6, 1], { clamp: true })
+  const wordmarkTrackingEm = useTransform(scrollY, [0, vh], [0.5, 0.28], { clamp: true })
+  const wordmarkLetterSpacing = useTransform(wordmarkTrackingEm, (v) => `${v}em`)
+  const sideOpacity = useTransform(scrollY, [0, vh * 0.6], [0, 1], { clamp: true })
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -28,27 +35,24 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
     >
       <div className="container navbar-inner">
-        <a href="#top" className="navbar-brand">
-          <span className="navbar-brand-mark">D</span>
-          <span className="navbar-brand-text">
-            <strong>DAN</strong>
-            <small>Draper Angel Network</small>
-          </span>
-        </a>
+        <motion.div className="navbar-side navbar-side-left" style={{ opacity: sideOpacity }}>
+          <Link to="/login/member" className="btn btn-ghost btn-sm">Log in</Link>
+        </motion.div>
 
-        <nav className="navbar-links">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>{l.label}</a>
-          ))}
-        </nav>
+        <motion.a
+          href="#top"
+          className="navbar-wordmark"
+          style={{ scale: wordmarkScale, letterSpacing: wordmarkLetterSpacing }}
+        >
+          DAN
+        </motion.a>
 
-        <div className="navbar-actions">
-          <Link to="/login/member" className="navbar-login-link">Log in</Link>
+        <motion.div className="navbar-side navbar-side-right" style={{ opacity: sideOpacity }}>
           <a href="#membership" className="btn btn-primary btn-sm">Apply for Membership</a>
           <button className="navbar-burger" onClick={() => setOpen((o) => !o)} aria-label="Toggle menu">
             <span className={open ? 'open' : ''} />
           </button>
-        </div>
+        </motion.div>
       </div>
 
       {open && (

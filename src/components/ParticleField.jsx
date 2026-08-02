@@ -11,7 +11,7 @@ export default function ParticleField() {
       style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
     >
       <Suspense fallback={null}>
-        <Sparkles count={110} scale={[14, 8, 6]} size={2.2} speed={0.28} color="#f0d488" opacity={0.7} />
+        <Sparkles count={110} scale={[14, 8, 6]} size={2.2} speed={0.28} color="#dfe3f1" opacity={0.7} />
       </Suspense>
     </Canvas>
   )

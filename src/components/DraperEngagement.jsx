@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
 import { IconLinkedIn, IconArrowRight } from './icons.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const LINKEDIN_URL = 'https://www.linkedin.com/company/draperuindia/'
 
@@ -87,9 +89,13 @@ const POSTS = [
 
 export default function DraperEngagement() {
   const loop = [...POSTS, ...POSTS]
+  const sectionRef = useRef(null)
+  const reduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
+  const x = useTransform(scrollYProgress, [0, 1], reduceMotion ? ['0%', '0%'] : ['2%', '-42%'])
 
   return (
-    <section className="section draper-engagement" id="draper-engagement">
+    <section className="section draper-engagement" id="draper-engagement" ref={sectionRef}>
       <Parallax className="glow-orb engagement-orb" range={90} />
       <Parallax className="glow-orb glow-orb-sm engagement-orb-2" range={-55} />
       <div className="container">
@@ -101,7 +107,7 @@ export default function DraperEngagement() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">From the Community</p>
-          <h2 className="section-title">Draper engagement &amp; startup stories</h2>
+          <h2 className="section-title"><Reveal>Draper engagement &amp; startup stories</Reveal></h2>
           <p className="section-lede" style={{ margin: '0 auto 26px' }}>
             Straight from the DraperU India LinkedIn — advisory council moments, founder
             programs, hackathons and workshops from inside the house.
@@ -113,7 +119,7 @@ export default function DraperEngagement() {
       </div>
 
       <div className="linkedin-scroller">
-        <div className="linkedin-track">
+        <motion.div className="linkedin-track" style={{ x }}>
           {loop.map((p, i) => (
             <a
               key={`${p.image}-${i}`}
@@ -135,7 +141,7 @@ export default function DraperEngagement() {
               </div>
             </a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

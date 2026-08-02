@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import TiltCard from './TiltCard.jsx'
 import { IconInvestor, IconFounder, IconMember, IconCheck, IconArrowRight } from './icons.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const PATHS = [
   {
@@ -36,7 +37,7 @@ export default function AccessPortal() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">Get Started</p>
-          <h2 className="section-title">Your DAN access portal</h2>
+          <h2 className="section-title"><Reveal>Your DAN access portal</Reveal></h2>
           <p className="section-lede" style={{ margin: '0 auto' }}>
             Whichever side of the table you sit on, DAN has a door in.
           </p>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 export default function CTA() {
   return (
@@ -16,7 +17,7 @@ export default function CTA() {
           <Parallax className="glow-orb glow-orb-sm cta-orb-2" range={-45} />
           <p className="eyebrow">Membership is by invitation only</p>
           <h2 className="section-title">
-            Ready to <span className="gold-text">empower founders</span> and grow with them?
+            <Reveal>Ready to <span className="gold-text">empower founders</span> and grow with them?</Reveal>
           </h2>
           <p className="section-lede">
             To request an invitation, connect with your DAN contact. Established under DraperU India.

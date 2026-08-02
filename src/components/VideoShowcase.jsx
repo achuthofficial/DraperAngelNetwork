@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
 import { IconPlay, IconShare, IconCheck } from './icons.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 export default function VideoShowcase() {
   const videoRef = useRef(null)
@@ -52,7 +53,7 @@ export default function VideoShowcase() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">See DAN in Action</p>
-          <h2 className="section-title">Step inside a DAN showcase</h2>
+          <h2 className="section-title"><Reveal>Step inside a DAN showcase</Reveal></h2>
           <p className="section-lede" style={{ margin: '0 auto' }}>
             Founders pitch. Investors ask the hard questions. This is what a monthly DAN
             showcase looks like from the room.

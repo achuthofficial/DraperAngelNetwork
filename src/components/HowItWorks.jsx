@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const STEPS = [
   { n: '01', title: 'Apply', desc: 'Share your background, professional profile and investment interests.' },
@@ -22,7 +23,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">How It Works</p>
-          <h2 className="section-title">Your path to membership</h2>
+          <h2 className="section-title"><Reveal>Your path to membership</Reveal></h2>
           <p className="section-lede" style={{ margin: '0 auto' }}>
             A simple, five-step journey from application to independent investment decisions.
           </p>

@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
+import Reveal from './motion/Reveal.jsx'
 
 const STAGES = [
   { n: '01', label: 'Idea-stage' },
@@ -25,9 +27,15 @@ const stepperItem = {
 
 export default function FocusAreas() {
   const loop = [...SECTORS, ...SECTORS]
+  const sectionRef = useRef(null)
+  const reduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
+  // velocity list (pattern 7): this row travels faster than the page itself —
+  // scroll-scrubbed and reversible, not an autonomous infinite loop.
+  const x = useTransform(scrollYProgress, [0, 1], reduceMotion ? ['0%', '0%'] : ['4%', '-38%'])
 
   return (
-    <section className="section focus-areas" id="focus-areas">
+    <section className="section focus-areas" id="focus-areas" ref={sectionRef}>
       <Parallax className="glow-orb focus-orb" range={90} />
       <div className="container">
         <motion.div
@@ -37,7 +45,7 @@ export default function FocusAreas() {
           transition={{ duration: 0.8 }}
         >
           <p className="eyebrow">Focus Areas</p>
-          <h2 className="section-title">Where DAN invests attention</h2>
+          <h2 className="section-title"><Reveal>Where DAN invests attention</Reveal></h2>
           <p className="section-lede">
             From a napkin sketch to a term sheet. DAN backs founders across every stage
             that matters before institutional capital steps in.
@@ -61,11 +69,11 @@ export default function FocusAreas() {
       </div>
 
       <div className="marquee">
-        <div className="marquee-track">
+        <motion.div className="marquee-track" style={{ x }}>
           {loop.map((s, i) => (
             <span className="marquee-tag" key={`${s}-${i}`}>{s}</span>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
