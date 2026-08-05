@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
 import { IconLinkedIn, IconArrowRight } from './icons.jsx'
 import Reveal from './motion/Reveal.jsx'
@@ -87,15 +87,54 @@ const POSTS = [
   },
 ]
 
+// Cards are arranged evenly around a full circle and the wheel spins forever —
+// a true loop with no reset/seam, unlike a linear marquee. ARC_COUNT is kept
+// well below what the radius could pack tightly so cards sit apart, not overlapping.
+const ARC_COUNT = 24
+const ARC_RADIUS = 1300
+const MOBILE_BREAKPOINT = 640
+
+function useIsMobile(breakpoint = MOBILE_BREAKPOINT) {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= breakpoint
+  )
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${breakpoint}px)`)
+    const onChange = () => setIsMobile(mql.matches)
+    onChange()
+    mql.addEventListener('change', onChange)
+    return () => mql.removeEventListener('change', onChange)
+  }, [breakpoint])
+  return isMobile
+}
+
+function PostCard({ p }) {
+  return (
+    <a className="linkedin-card card" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+      <div className="linkedin-card-media">
+        <img src={p.image} alt={p.caption} loading="lazy" />
+        <span className="linkedin-card-badge"><IconLinkedIn /></span>
+      </div>
+      <div className="linkedin-card-body">
+        <span className="linkedin-card-tag">{p.tag}</span>
+        <p>{p.caption}</p>
+        <span className="linkedin-card-footer">
+          View on LinkedIn <IconArrowRight />
+        </span>
+      </div>
+    </a>
+  )
+}
+
 export default function DraperEngagement() {
-  const loop = [...POSTS, ...POSTS]
-  const sectionRef = useRef(null)
+  const loop = Array.from({ length: ARC_COUNT }, (_, i) => POSTS[i % POSTS.length])
+  const angleStep = 360 / loop.length
   const reduceMotion = useReducedMotion()
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
-  const x = useTransform(scrollYProgress, [0, 1], reduceMotion ? ['0%', '0%'] : ['2%', '-42%'])
+  const isMobile = useIsMobile()
+  const linearLoop = [...POSTS, ...POSTS]
 
   return (
-    <section className="section draper-engagement" id="draper-engagement" ref={sectionRef}>
+    <section className="section draper-engagement" id="draper-engagement">
       <Parallax className="glow-orb engagement-orb" range={90} />
       <Parallax className="glow-orb glow-orb-sm engagement-orb-2" range={-55} />
       <div className="container">
@@ -118,31 +157,34 @@ export default function DraperEngagement() {
         </motion.div>
       </div>
 
-      <div className="linkedin-scroller">
-        <motion.div className="linkedin-track" style={{ x }}>
-          {loop.map((p, i) => (
-            <a
-              key={`${p.image}-${i}`}
-              className="linkedin-card card"
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="linkedin-card-media">
-                <img src={p.image} alt={p.caption} loading="lazy" />
-                <span className="linkedin-card-badge"><IconLinkedIn /></span>
-              </div>
-              <div className="linkedin-card-body">
-                <span className="linkedin-card-tag">{p.tag}</span>
-                <p>{p.caption}</p>
-                <span className="linkedin-card-footer">
-                  View on LinkedIn <IconArrowRight />
-                </span>
-              </div>
-            </a>
-          ))}
-        </motion.div>
-      </div>
+      {isMobile ? (
+        <div className={`linkedin-scroller linkedin-scroller-linear${reduceMotion ? ' is-static' : ''}`}>
+          <div className="linkedin-track">
+            {linearLoop.map((p, i) => (
+              <PostCard key={`${p.image}-lin-${i}`} p={p} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className={`linkedin-scroller${reduceMotion ? ' is-static' : ''}`}>
+          <div className="arc-wheel" style={{ '--arc-radius': `${ARC_RADIUS}px` }}>
+            {loop.map((p, i) => {
+              const angle = i * angleStep
+              return (
+                <div
+                  key={`${p.image}-${i}`}
+                  className="arc-slot"
+                  style={{ transform: `rotate(${angle}deg) translateY(calc(var(--arc-radius) * -1))` }}
+                >
+                  <div className="arc-anchor">
+                    <PostCard p={p} />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
     </section>
   )
 }

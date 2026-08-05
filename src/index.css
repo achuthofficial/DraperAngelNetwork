@@ -55,6 +55,12 @@
 
 html {
   scroll-behavior: smooth;
+  /* Horizontal clip lives on the true root scroller, not body/#root —
+     overflow-x: hidden on either of those forces their overflow-y to
+     compute as auto too, which turns them into scroll containers and
+     breaks position: sticky for every descendant (the Pillars pin
+     section in particular). html is exempt from that. */
+  overflow-x: hidden;
 }
 
 body {
@@ -62,13 +68,10 @@ body {
   background: var(--c-void);
   color: var(--text);
   font-family: var(--font-sans);
-  overflow-x: hidden;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 #root {
-  overflow-x: hidden;
-  overflow-y: visible;
   position: relative;
 }
 
@@ -945,7 +948,11 @@ button {
   color: var(--gold);
 }
 
-.hero-stats span {
+/* Direct-child combinator, not a bare descendant selector — CountUp
+   renders the number inside its own nested <span>, and a bare
+   `.hero-stats span` would also match that and shrink the number down
+   to caption size. Only the caption span is a direct child of the div. */
+.hero-stats div > span {
   font-size: 0.82rem;
   color: var(--text-faint);
   letter-spacing: 0.02em;
@@ -1216,17 +1223,79 @@ button {
   position: relative;
   z-index: 1;
   margin-top: 56px;
-  padding: 10px 0 90px;
+  height: 600px;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 }
 
+/* Cards sit at fixed angles around a full circle, hanging from a pivot below
+   the viewport like a fanned deck — no counter-rotation, so each card's tilt
+   naturally tracks its position on the arc. The wheel spins forever, so this
+   loops seamlessly with no reset/jump like a linear marquee needs. */
+.arc-wheel {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--arc-radius) + 24px);
+  width: 0;
+  height: 0;
+  animation: arc-spin 100s linear infinite;
+  will-change: transform;
+}
+
+.arc-slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.arc-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-50%);
+}
+
+@keyframes arc-spin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+.linkedin-scroller:hover .arc-wheel {
+  animation-play-state: paused;
+}
+
+.linkedin-scroller.is-static .arc-wheel {
+  animation: none;
+}
+
+/* Mobile: a narrow viewport can't fit a fanned arc without cards overlapping
+   or clipping, so it gets a plain continuous auto-scrolling strip instead. */
+.linkedin-scroller-linear {
+  height: auto;
+  padding: 10px 0 70px;
+}
+
 .linkedin-track {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   width: max-content;
+  animation: linkedin-marquee 36s linear infinite;
   will-change: transform;
+}
+
+@keyframes linkedin-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.linkedin-scroller-linear:hover .linkedin-track {
+  animation-play-state: paused;
+}
+
+.linkedin-scroller-linear.is-static .linkedin-track {
+  animation: none;
 }
 
 .linkedin-card {
@@ -1324,7 +1393,6 @@ button {
 
 @media (max-width: 640px) {
   .linkedin-card { width: 260px; }
-  .linkedin-scroller { padding-bottom: 70px; }
 }
 
 /* ===================== Why DAN ===================== */
@@ -1412,7 +1480,11 @@ button {
   margin-bottom: 14px;
 }
 
-.stat-card span {
+/* Scoped to direct children of the card's content wrapper, not a bare
+   descendant selector — same CountUp-nested-span issue as .hero-stats
+   (see there): a bare `.stat-card span` also shrinks the "17" in the
+   Draper Network countTo stat down to caption size. */
+.stat-card .tilt-card-inner > div > span {
   color: var(--text-dim);
   font-size: 0.95rem;
   line-height: 1.5;
@@ -1687,14 +1759,19 @@ button {
   z-index: 2;
   left: 0;
   right: 0;
-  bottom: 9%;
+  bottom: 5%;
   text-align: center;
   padding: 0 24px;
 }
 
 .pillars-pin-title {
-  max-width: 900px;
+  /* Deliberately smaller than the default .section-title clamp — this
+     title shares the frame with the pinned cards above it, so it needs
+     to resolve in ~2 lines instead of 4 or it climbs into card space. */
+  max-width: 640px;
   margin: 0 auto;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  line-height: 1.15;
 }
 
 @media (max-width: 900px) {

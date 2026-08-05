@@ -19,32 +19,23 @@ const GROUPS = [
   },
 ]
 
-// deterministic pseudo-scatter — stable across renders, no layout shift risk
-function scatterFor(i) {
-  const rotate = ((i * 37) % 17) - 8
-  const lift = ((i * 29) % 12) - 6
-  return { rotate, lift }
-}
-
 const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.045 } },
 }
 const item = {
-  hidden: { opacity: 0, y: 14, scale: 0.94, rotate: 0 },
-  show: ({ rotate, lift }) => ({
+  hidden: { opacity: 0, y: 14, scale: 0.94 },
+  show: {
     opacity: 1,
-    y: lift,
+    y: 0,
     scale: 1,
-    rotate,
     transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
-  }),
+  },
 }
 
 export default function WhoShouldJoin() {
   const reduceMotion = useReducedMotion()
   const [activeCaption, setActiveCaption] = useState(null)
-  let flatIndex = -1
 
   return (
     <section className="section who-should-join">
@@ -92,17 +83,14 @@ export default function WhoShouldJoin() {
                 viewport={{ once: true, amount: 0.3 }}
               >
                 {group.people.map((label) => {
-                  flatIndex += 1
                   const key = `${group.label}-${label}`
-                  const scatter = scatterFor(flatIndex)
                   return (
                     <motion.span
                       key={key}
                       className="pill constellation-item"
-                      custom={scatter}
                       variants={item}
-                      whileHover={reduceMotion ? undefined : { rotate: 0, y: scatter.lift - 4, scale: 1.06 }}
-                      whileFocus={reduceMotion ? undefined : { rotate: 0, y: scatter.lift - 4, scale: 1.06 }}
+                      whileHover={reduceMotion ? undefined : { y: -4, scale: 1.06 }}
+                      whileFocus={reduceMotion ? undefined : { y: -4, scale: 1.06 }}
                       onMouseEnter={() => setActiveCaption(key)}
                       onMouseLeave={() => setActiveCaption(null)}
                       onFocus={() => setActiveCaption(key)}
