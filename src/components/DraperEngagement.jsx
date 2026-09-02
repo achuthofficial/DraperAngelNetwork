@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Parallax from './Parallax.jsx'
 import { IconLinkedIn, IconArrowRight } from './icons.jsx'
@@ -87,27 +86,6 @@ const POSTS = [
   },
 ]
 
-// Cards are arranged evenly around a full circle and the wheel spins forever —
-// a true loop with no reset/seam, unlike a linear marquee. ARC_COUNT is kept
-// well below what the radius could pack tightly so cards sit apart, not overlapping.
-const ARC_COUNT = 24
-const ARC_RADIUS = 1300
-const MOBILE_BREAKPOINT = 640
-
-function useIsMobile(breakpoint = MOBILE_BREAKPOINT) {
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth <= breakpoint
-  )
-  useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${breakpoint}px)`)
-    const onChange = () => setIsMobile(mql.matches)
-    onChange()
-    mql.addEventListener('change', onChange)
-    return () => mql.removeEventListener('change', onChange)
-  }, [breakpoint])
-  return isMobile
-}
-
 function PostCard({ p }) {
   return (
     <a className="linkedin-card card" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
@@ -127,11 +105,10 @@ function PostCard({ p }) {
 }
 
 export default function DraperEngagement() {
-  const loop = Array.from({ length: ARC_COUNT }, (_, i) => POSTS[i % POSTS.length])
-  const angleStep = 360 / loop.length
   const reduceMotion = useReducedMotion()
-  const isMobile = useIsMobile()
-  const linearLoop = [...POSTS, ...POSTS]
+  // The track holds two identical passes and translates exactly -50%, so the
+  // second pass lands where the first began — a seam-free loop on one axis.
+  const loop = [...POSTS, ...POSTS]
 
   return (
     <section className="section draper-engagement" id="draper-engagement">
@@ -148,7 +125,7 @@ export default function DraperEngagement() {
           <p className="eyebrow">From the Community</p>
           <h2 className="section-title"><Reveal>Draper engagement &amp; startup stories</Reveal></h2>
           <p className="section-lede" style={{ margin: '0 auto 26px' }}>
-            Straight from the DraperU India LinkedIn — advisory council moments, founder
+            Straight from the DraperU India LinkedIn &mdash; advisory council moments, founder
             programs, hackathons and workshops from inside the house.
           </p>
           <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
@@ -157,34 +134,13 @@ export default function DraperEngagement() {
         </motion.div>
       </div>
 
-      {isMobile ? (
-        <div className={`linkedin-scroller linkedin-scroller-linear${reduceMotion ? ' is-static' : ''}`}>
-          <div className="linkedin-track">
-            {linearLoop.map((p, i) => (
-              <PostCard key={`${p.image}-lin-${i}`} p={p} />
-            ))}
-          </div>
+      <div className={`linkedin-scroller${reduceMotion ? ' is-static' : ''}`}>
+        <div className="linkedin-track">
+          {loop.map((p, i) => (
+            <PostCard key={`${p.image}-${i}`} p={p} />
+          ))}
         </div>
-      ) : (
-        <div className={`linkedin-scroller${reduceMotion ? ' is-static' : ''}`}>
-          <div className="arc-wheel" style={{ '--arc-radius': `${ARC_RADIUS}px` }}>
-            {loop.map((p, i) => {
-              const angle = i * angleStep
-              return (
-                <div
-                  key={`${p.image}-${i}`}
-                  className="arc-slot"
-                  style={{ transform: `rotate(${angle}deg) translateY(calc(var(--arc-radius) * -1))` }}
-                >
-                  <div className="arc-anchor">
-                    <PostCard p={p} />
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      )}
+      </div>
     </section>
   )
 }

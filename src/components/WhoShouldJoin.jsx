@@ -52,7 +52,7 @@ export default function WhoShouldJoin() {
           <h2 className="section-title"><Reveal>Built for India's decision-makers</Reveal></h2>
           <p className="section-lede">
             DAN brings together the people who write cheques and the people who've built
-            companies  often the same person twice over. If you carry capital, credibility
+            companies — often the same person twice over. If you carry capital, credibility
             or hard-won operating experience, there's a seat for you at the table.
           </p>
           <a href="#membership" className="btn btn-ghost who-cta">

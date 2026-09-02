@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
 const LINKS = [
+  { href: '#tim-draper', label: 'Tim Draper' },
+  { href: '#what-is-dan', label: 'What is DAN' },
   { href: '#why-dan', label: 'Why DAN' },
   { href: '#membership', label: 'Membership' },
   { href: '#founding-member', label: 'Founding Member' },
@@ -36,7 +38,7 @@ export default function Navbar() {
     >
       <div className="container navbar-inner">
         <motion.div className="navbar-side navbar-side-left" style={{ opacity: sideOpacity }}>
-          <Link to="/login/member" className="btn btn-ghost btn-sm">Log in</Link>
+          <Link to="/login/investor" className="btn btn-ghost btn-sm">Log in</Link>
         </motion.div>
 
         <motion.a
@@ -65,7 +67,7 @@ export default function Navbar() {
           {LINKS.map((l) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
-          <Link to="/login/member" onClick={() => setOpen(false)}>Log in</Link>
+          <Link to="/login/investor" onClick={() => setOpen(false)}>Log in</Link>
           <a href="#membership" className="btn btn-primary" onClick={() => setOpen(false)}>Apply for Membership</a>
         </motion.div>
       )}

@@ -22,7 +22,7 @@ export default function App() {
       <BackgroundTexture />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Navigate to="/login/member" replace />} />
+        <Route path="/login" element={<Navigate to="/login/investor" replace />} />
         <Route path="/login/:role" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

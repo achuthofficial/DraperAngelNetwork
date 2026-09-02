@@ -31,11 +31,12 @@ export default function Footer() {
           <div className="footer-links-col">
             <span className="footer-col-label">Explore</span>
             <nav className="footer-links">
+              <a href="#tim-draper">Who is Tim Draper</a>
+              <a href="#track-record">The Track Record</a>
+              <a href="#what-is-dan">What is DAN</a>
               <a href="#why-dan">Why DAN</a>
               <a href="#membership">Membership</a>
-              <a href="#draper-network">The Draper Network</a>
               <a href="#focus-areas">Focus Areas</a>
-              <a href="#community">Community</a>
             </nav>
           </div>
 
@@ -44,9 +45,9 @@ export default function Footer() {
             <nav className="footer-links">
               <a href="#get-started">Join as an Investor</a>
               <a href="#get-started">Join as a Founder</a>
-              <Link to="/login/investor">Investor Login</Link>
-              <Link to="/login/founder">Founder Login</Link>
-              <Link to="/login/member">Member Login</Link>
+              <Link to="/login/investor">Investor Sign In</Link>
+              <Link to="/login/investor">Create an Investor Account</Link>
+              <Link to="/login/admin">Admin Login</Link>
             </nav>
           </div>
 

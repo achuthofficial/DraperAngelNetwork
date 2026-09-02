@@ -4,24 +4,29 @@ import { motion, AnimatePresence } from 'framer-motion'
 import ParticleField from '../components/ParticleField.jsx'
 import {
   IconInvestor,
-  IconFounder,
-  IconMember,
+  IconShield,
   IconMail,
   IconLock,
+  IconUser,
+  IconGoogle,
   IconEye,
   IconEyeOff,
   IconSpinner,
   IconArrowRight,
   IconCheck,
-  IconShield,
 } from '../components/icons.jsx'
 
+/* Two roles only. `canSignUp` is the single switch that decides whether the
+   panel offers a register mode at all — admin accounts are provisioned, never
+   self-served, so that surface simply does not exist for them. */
 const ROLES = {
   investor: {
     label: 'Investor',
-    fullLabel: 'Investor / Angel',
+    fullLabel: 'Investor',
     icon: IconInvestor,
-    eyebrow: 'Investor Login',
+    eyebrow: 'Investor Access',
+    canSignUp: true,
+    allowGoogle: true,
     tagline: 'Curated deal flow, monthly startup showcases and investor education, all in one place.',
     quote: '“DAN gave me a structured way into India’s startup story.”',
     quoteFooter: 'DAN Investor Member',
@@ -31,29 +36,17 @@ const ROLES = {
       { value: '2–3', label: 'Startups showcased monthly' },
     ],
   },
-  founder: {
-    label: 'Founder',
-    fullLabel: 'Founder',
-    icon: IconFounder,
-    eyebrow: 'Founder Login',
-    tagline: 'Track your showcase slot, investor introductions and feedback from operators.',
-    quote: '“A warm introduction from DAN moved our raise forward.”',
-    quoteFooter: 'DAN Showcased Founder',
-    image: '/images/draper/community-portrait.jpeg',
-    stats: [
-      { value: '700+', label: 'Companies started by alumni' },
-      { value: '$950M+', label: 'Raised by the network' },
-    ],
-  },
-  member: {
-    label: 'Member',
-    fullLabel: 'Member',
-    icon: IconMember,
-    eyebrow: 'Member Login',
-    tagline: 'Sign in to access showcases, deal flow, resources and community updates.',
-    quote: '“One of India’s most trusted communities of angel investors.”',
-    quoteFooter: 'Our Vision',
-    image: '/images/draper/echai-group-photo.jpeg',
+  admin: {
+    label: 'Admin',
+    fullLabel: 'Administrator',
+    icon: IconShield,
+    eyebrow: 'Administrator Access',
+    canSignUp: false,
+    allowGoogle: false,
+    tagline: 'Manage members, showcase slots, deal flow and applications for the DAN network.',
+    quote: '“Restricted access. Administrator accounts are issued by the DAN team.”',
+    quoteFooter: 'DAN Operations',
+    image: '/images/draper/india-codex-stage.jpeg',
     stats: [
       { value: '17', label: 'Countries in the network' },
       { value: '1M by 2030', label: 'Entrepreneurs enabled' },
@@ -63,13 +56,16 @@ const ROLES = {
 
 export default function LoginPage() {
   const { role } = useParams()
+  const [mode, setMode] = useState('signin') // signin | signup
 
   if (!ROLES[role]) {
-    return <Navigate to="/login/member" replace />
+    return <Navigate to="/login/investor" replace />
   }
 
   const config = ROLES[role]
   const Icon = config.icon
+  // Guards the URL as well as the UI: /login/admin can never land in signup.
+  const activeMode = config.canSignUp ? mode : 'signin'
 
   return (
     <div className="auth-page">
@@ -102,7 +98,11 @@ export default function LoginPage() {
           >
             <span className="feature-icon auth-visual-icon"><Icon /></span>
             <h1 className="section-title">
-              Welcome back, <span className="gold-text">{config.fullLabel}</span>
+              {activeMode === 'signup' ? (
+                <>Join as an <span className="gold-text">{config.fullLabel}</span></>
+              ) : (
+                <>Welcome back, <span className="gold-text">{config.fullLabel}</span></>
+              )}
             </h1>
             <p className="section-lede">{config.tagline}</p>
 
@@ -143,7 +143,12 @@ export default function LoginPage() {
         <div className="auth-form-wrap">
           <div className="auth-role-switch">
             {Object.entries(ROLES).map(([key, r]) => (
-              <Link key={key} to={`/login/${key}`} className="auth-role-pill">
+              <Link
+                key={key}
+                to={`/login/${key}`}
+                className="auth-role-pill"
+                onClick={() => setMode('signin')}
+              >
                 {key === role && (
                   <motion.span
                     layoutId="auth-role-pill-bg"
@@ -159,27 +164,60 @@ export default function LoginPage() {
           <div className="auth-form-card card">
             <AnimatePresence mode="wait">
               <motion.div
-                key={role}
+                key={`${role}-${activeMode}`}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
               >
                 <p className="eyebrow">{config.eyebrow}</p>
-                <h2 className="section-title auth-form-title">Sign in to your account</h2>
+                <h2 className="section-title auth-form-title">
+                  {activeMode === 'signup' ? 'Create your account' : 'Sign in to your account'}
+                </h2>
                 <p className="section-lede auth-form-lede">
-                  Enter your details below to access the {config.label.toLowerCase()} portal.
+                  {activeMode === 'signup'
+                    ? 'Register to request access to showcases, deal flow and investor education.'
+                    : `Enter your details below to access the ${config.label.toLowerCase()} portal.`}
                 </p>
 
-                <LoginForm roleLabel={config.label} />
+                {config.allowGoogle && (
+                  <>
+                    <button type="button" className="auth-google">
+                      <IconGoogle />
+                      {activeMode === 'signup' ? 'Sign up with Google' : 'Continue with Google'}
+                    </button>
+                    <div className="auth-divider"><span>or</span></div>
+                  </>
+                )}
+
+                <AuthForm role={role} mode={activeMode} roleLabel={config.label} />
               </motion.div>
             </AnimatePresence>
           </div>
 
-          <p className="auth-apply-note">
-            Don&rsquo;t have access yet?{' '}
-            <Link to="/#membership">Apply for membership</Link>
-          </p>
+          {config.canSignUp ? (
+            <p className="auth-apply-note">
+              {activeMode === 'signin' ? (
+                <>
+                  Don&rsquo;t have an account?{' '}
+                  <button type="button" className="auth-mode-link" onClick={() => setMode('signup')}>
+                    Sign up
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{' '}
+                  <button type="button" className="auth-mode-link" onClick={() => setMode('signin')}>
+                    Sign in
+                  </button>
+                </>
+              )}
+            </p>
+          ) : (
+            <p className="auth-apply-note">
+              Administrator accounts are issued by the DAN team. There is no self sign-up.
+            </p>
+          )}
 
           <div className="auth-trust-row">
             <span><IconShield /> Invite-curated network</span>
@@ -196,10 +234,13 @@ const fieldVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.2, 0.8, 0.2, 1] } },
 }
 
-function LoginForm({ roleLabel }) {
+function AuthForm({ role, mode, roleLabel }) {
   const [showPassword, setShowPassword] = useState(false)
   const [status, setStatus] = useState('idle') // idle | loading | success
   const [error, setError] = useState('')
+  const [showReset, setShowReset] = useState(false)
+  const isSignUp = mode === 'signup'
+  const isAdmin = role === 'admin'
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -207,12 +248,20 @@ function LoginForm({ roleLabel }) {
     const email = form.email.value.trim()
     const password = form.password.value
 
+    if (isSignUp && !form.name.value.trim()) {
+      setError('Enter your full name.')
+      return
+    }
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       setError('Enter a valid email address.')
       return
     }
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters.')
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters.')
+      return
+    }
+    if (isSignUp && password !== form.confirm.value) {
+      setError('Passwords do not match.')
       return
     }
 
@@ -230,10 +279,11 @@ function LoginForm({ roleLabel }) {
         transition={{ duration: 0.5 }}
       >
         <span className="auth-success-icon"><IconCheck /></span>
-        <h3>Request received</h3>
+        <h3>{isSignUp ? 'Registration received' : 'Request received'}</h3>
         <p>
-          DAN membership is invite-curated, so accounts are activated by our team. We&rsquo;ll
-          email you {roleLabel.toLowerCase()} portal access shortly.
+          {isAdmin
+            ? 'Administrator sign-in is verified by the DAN team. You will be redirected once your credentials are confirmed.'
+            : `DAN membership is invite-curated, so accounts are activated by our team. We’ll email you ${roleLabel.toLowerCase()} portal access shortly.`}
         </p>
       </motion.div>
     )
@@ -248,11 +298,26 @@ function LoginForm({ roleLabel }) {
       animate="show"
       variants={{ show: { transition: { staggerChildren: 0.07 } } }}
     >
+      {isSignUp && (
+        <motion.label className="auth-field" variants={fieldVariants}>
+          <span>Full name</span>
+          <div className="auth-input-wrap">
+            <span className="auth-input-icon"><IconUser /></span>
+            <input type="text" name="name" placeholder="Your full name" autoComplete="name" />
+          </div>
+        </motion.label>
+      )}
+
       <motion.label className="auth-field" variants={fieldVariants}>
         <span>Email address</span>
         <div className="auth-input-wrap">
           <span className="auth-input-icon"><IconMail /></span>
-          <input type="email" name="email" placeholder="you@company.com" autoComplete="email" />
+          <input
+            type="email"
+            name="email"
+            placeholder={isAdmin ? 'admin@dan.vc' : 'you@company.com'}
+            autoComplete="email"
+          />
         </div>
       </motion.label>
 
@@ -263,8 +328,8 @@ function LoginForm({ roleLabel }) {
           <input
             type={showPassword ? 'text' : 'password'}
             name="password"
-            placeholder="Enter your password"
-            autoComplete="current-password"
+            placeholder={isSignUp ? 'At least 8 characters' : 'Enter your password'}
+            autoComplete={isSignUp ? 'new-password' : 'current-password'}
           />
           <button
             type="button"
@@ -277,13 +342,48 @@ function LoginForm({ roleLabel }) {
         </div>
       </motion.label>
 
-      <motion.div className="auth-form-row" variants={fieldVariants}>
-        <label className="auth-checkbox">
-          <input type="checkbox" name="remember" />
-          <span>Remember me</span>
-        </label>
-        <a href="#forgot-password" className="auth-forgot">Forgot password?</a>
-      </motion.div>
+      {isSignUp && (
+        <motion.label className="auth-field" variants={fieldVariants}>
+          <span>Confirm password</span>
+          <div className="auth-input-wrap">
+            <span className="auth-input-icon"><IconLock /></span>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="confirm"
+              placeholder="Re-enter your password"
+              autoComplete="new-password"
+            />
+          </div>
+        </motion.label>
+      )}
+
+      {!isSignUp && (
+        <motion.div className="auth-form-row" variants={fieldVariants}>
+          <label className="auth-checkbox">
+            <input type="checkbox" name="remember" />
+            <span>Remember me</span>
+          </label>
+          <button
+            type="button"
+            className="auth-forgot"
+            onClick={() => setShowReset((v) => !v)}
+          >
+            Forgot password?
+          </button>
+        </motion.div>
+      )}
+
+      {showReset && !isSignUp && (
+        <motion.p
+          className="auth-reset-note"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          Password resets are handled by the DAN team. Reach out to your DAN contact and
+          we&rsquo;ll reissue your credentials.
+        </motion.p>
+      )}
 
       {error && <p className="auth-error">{error}</p>}
 
@@ -296,9 +396,19 @@ function LoginForm({ roleLabel }) {
         {status === 'loading' ? (
           <span className="auth-spinner"><IconSpinner /></span>
         ) : (
-          <>Sign In <IconArrowRight /></>
+          <>
+            {isSignUp ? 'Create Account' : isAdmin ? 'Sign in as Admin' : 'Sign In'}
+            <IconArrowRight />
+          </>
         )}
       </motion.button>
+
+      {isSignUp && (
+        <motion.p className="auth-terms" variants={fieldVariants}>
+          By creating an account you agree that DAN membership is invite-curated and does not
+          constitute investment advice or a guarantee of allocation.
+        </motion.p>
+      )}
     </motion.form>
   )
 }

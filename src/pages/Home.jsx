@@ -6,20 +6,20 @@ import BackToTop from '../components/chrome/BackToTop.jsx'
 import PillNav from '../components/chrome/PillNav.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Hero from '../components/Hero.jsx'
-import Commitment from '../components/Commitment.jsx'
+import TimDraper from '../components/TimDraper.jsx'
+import DraperTrackRecord from '../components/DraperTrackRecord.jsx'
+import WhatIsDAN from '../components/WhatIsDAN.jsx'
 import WhyDAN from '../components/WhyDAN.jsx'
 import Pillars from '../components/Pillars.jsx'
-import AboutStory from '../components/AboutStory.jsx'
-import DraperNetwork from '../components/DraperNetwork.jsx'
-import DraperEngagement from '../components/DraperEngagement.jsx'
 import Features from '../components/Features.jsx'
 import Membership from '../components/Membership.jsx'
 import WhoShouldJoin from '../components/WhoShouldJoin.jsx'
 import HowItWorks from '../components/HowItWorks.jsx'
 import FoundingMember from '../components/FoundingMember.jsx'
 import FocusAreas from '../components/FocusAreas.jsx'
+import DraperEngagement from '../components/DraperEngagement.jsx'
+import Commitment from '../components/Commitment.jsx'
 import CTA from '../components/CTA.jsx'
-import VideoShowcase from '../components/VideoShowcase.jsx'
 import AccessPortal from '../components/AccessPortal.jsx'
 import Footer from '../components/Footer.jsx'
 
@@ -37,21 +37,28 @@ export default function Home() {
       <Ticker />
       <Navbar />
       <main>
+        {/* --- who we are: the credential chain, before anything is asked for --- */}
         <Hero />
-        <Commitment />
+        <TimDraper />
+        <DraperTrackRecord />
+        <WhatIsDAN />
+
+        {/* --- the opportunity, and what membership actually is --- */}
         <WhyDAN />
         <Pillars />
-        <AboutStory />
-        <DraperNetwork />
-        <DraperEngagement />
         <Features />
         <Membership />
+
+        {/* --- fit, process and the founding-cohort offer --- */}
         <WhoShouldJoin />
         <HowItWorks />
         <FoundingMember />
         <FocusAreas />
+
+        {/* --- proof, vision and the way in --- */}
+        <DraperEngagement />
+        <Commitment />
         <CTA />
-        <VideoShowcase />
         <AccessPortal />
       </main>
       <Footer />

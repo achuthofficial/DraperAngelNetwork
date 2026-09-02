@@ -13,6 +13,7 @@ const PATHS = [
     highlights: ['Curated deal flow', 'Monthly startup showcases', 'Investor education sessions'],
     cta: 'Apply as an Investor',
     loginRole: 'investor',
+    loginLabel: 'Already applied? Sign in',
   },
   {
     icon: IconFounder,
@@ -21,7 +22,8 @@ const PATHS = [
     desc: 'Pitch your startup to a curated network of angels, HNIs, family offices and ecosystem leaders.',
     highlights: ['A founder showcase slot', 'Warm investor introductions', 'Feedback from operators'],
     cta: 'Apply as a Founder',
-    loginRole: 'founder',
+    loginRole: null,
+    loginNote: 'Founders are contacted directly — no portal account needed.',
   },
 ]
 
@@ -56,7 +58,7 @@ export default function AccessPortal() {
         </motion.div>
 
         <div className="portal-grid">
-          {PATHS.map(({ icon: Icon, tag, title, desc, highlights, cta, loginRole }, i) => (
+          {PATHS.map(({ icon: Icon, tag, title, desc, highlights, cta, loginRole, loginLabel, loginNote }, i) => (
             <TiltCard key={title} className="portal-card" maxTilt={6}>
               <motion.div
                 initial={{ opacity: 0, y: 34 }}
@@ -76,9 +78,13 @@ export default function AccessPortal() {
                 <a href="#membership" className="btn btn-primary portal-cta">
                   {cta} <IconArrowRight />
                 </a>
-                <Link to={`/login/${loginRole}`} className="portal-login-link">
-                  Already applied? Log in
-                </Link>
+                {loginRole ? (
+                  <Link to={`/login/${loginRole}`} className="portal-login-link">
+                    {loginLabel}
+                  </Link>
+                ) : (
+                  <span className="portal-login-link is-note">{loginNote}</span>
+                )}
               </motion.div>
             </TiltCard>
           ))}
@@ -94,12 +100,12 @@ export default function AccessPortal() {
           <div className="member-bar-info">
             <span className="feature-icon member-bar-icon"><IconMember /></span>
             <div>
-              <h3>Already a DAN member?</h3>
+              <h3>Already a DAN investor?</h3>
               <p>Sign in to access showcases, deal flow, resources and community updates.</p>
             </div>
           </div>
-          <Link to="/login/member" className="btn btn-ghost member-bar-cta">
-            Member Login <IconArrowRight />
+          <Link to="/login/investor" className="btn btn-ghost member-bar-cta">
+            Investor Sign In <IconArrowRight />
           </Link>
         </motion.div>
       </div>

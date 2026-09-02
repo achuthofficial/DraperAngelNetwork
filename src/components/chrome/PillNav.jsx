@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
 const LINKS = [
+  { href: '#tim-draper', label: 'Draper' },
+  { href: '#what-is-dan', label: 'What is DAN' },
   { href: '#why-dan', label: 'Why DAN' },
   { href: '#membership', label: 'Membership' },
   { href: '#founding-member', label: 'Founding' },
-  { href: '#focus-areas', label: 'Focus' },
   { href: '#community', label: 'Community' },
 ]
 
