@@ -19,15 +19,15 @@ import {
 function navFor(role) {
   if (role === 'admin') {
     return [
-      { to: '/portal', end: true, label: 'Overview', icon: IconGauge },
-      { to: '/portal/founders', label: 'Founders', icon: IconFounder },
-      { to: '/portal/events', label: 'Events', icon: IconCalendar },
+      { key: 'overview', to: '/portal', end: true, label: 'Overview', icon: IconGauge },
+      { key: 'founders', to: '/portal/founders', label: 'Founders', icon: IconFounder },
+      { key: 'events', to: '/portal/events', label: 'Events', icon: IconCalendar },
     ]
   }
   return [
-    { to: '/portal', end: true, label: 'Overview', icon: IconGauge },
-    { to: '/portal/learn', label: 'Learning Track', icon: IconBook },
-    { to: '/portal/events', label: 'Events', icon: IconCalendar },
+    { key: 'overview', to: '/portal', end: true, label: 'Overview', icon: IconGauge },
+    { key: 'learn', to: '/portal/learn', label: 'Briefings', icon: IconBook },
+    { key: 'events', to: '/portal/events', label: 'Events', icon: IconCalendar },
   ]
 }
 
@@ -62,7 +62,7 @@ export default function DashboardLayout() {
         </Link>
 
         <nav className="portal-nav" aria-label="Portal">
-          {items.map(({ to, end, label, icon: Icon }) => (
+          {items.map(({ key, to, end, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
@@ -71,32 +71,31 @@ export default function DashboardLayout() {
             >
               <Icon />
               <span>{label}</span>
-              {label === 'Learning Track' && (
+              {key === 'learn' && done > 0 && (
                 <em className="portal-nav-badge">
                   {done}/{modules.length}
                 </em>
               )}
-              {label === 'Events' && upcomingEvents.length > 0 && (
+              {key === 'events' && upcomingEvents.length > 0 && (
                 <em className="portal-nav-badge">{upcomingEvents.length}</em>
               )}
-              {label === 'Founders' && <em className="portal-nav-badge">{founders.length}</em>}
+              {key === 'founders' && <em className="portal-nav-badge">{founders.length}</em>}
             </NavLink>
           ))}
         </nav>
 
         {isMember(role) && (
           <div className="portal-side-card">
-            <span className="portal-side-card-label">Learning progress</span>
-            <div className="portal-side-bar">
-              <span style={{ width: `${(done / modules.length) * 100}%` }} />
-            </div>
+            <span className="portal-side-card-label">Your briefings</span>
             <p>
-              {done === modules.length
-                ? 'Track complete. You have the full framework.'
-                : `${modules.length - done} module${modules.length - done === 1 ? '' : 's'} left before the decision framework.`}
+              {done === 0
+                ? 'Nine short briefings on judging an early-stage deal. Start wherever is useful.'
+                : done === modules.length
+                  ? 'You have read all nine. Briefing 09 is the one to revisit before a real decision.'
+                  : `You have read ${done} of ${modules.length}. Your place is saved.`}
             </p>
             <Link to="/portal/learn" className="portal-side-card-link">
-              {done === 0 ? 'Start the track' : 'Continue'} <IconArrowRight />
+              {done === 0 ? 'Open the briefings' : 'Pick up where you left off'} <IconArrowRight />
             </Link>
           </div>
         )}
