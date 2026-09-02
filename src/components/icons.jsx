@@ -256,3 +256,75 @@ export function IconUser(props) {
     </svg>
   )
 }
+
+/* ---- portal icons (dashboard sidebar and controls) ---- */
+
+export function IconGauge(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" {...common} {...props}>
+      <path d="M4 18a9 9 0 1 1 16 0" />
+      <path d="M12 18l4.2-5.4" />
+      <circle cx="12" cy="18" r="1.3" fill="var(--gold)" stroke="none" />
+    </svg>
+  )
+}
+
+export function IconCalendar(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" {...common} {...props}>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.4" />
+      <path d="M3.5 9.6h17M8.5 3.2v3.4M15.5 3.2v3.4" />
+    </svg>
+  )
+}
+
+export function IconPlus(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} strokeWidth={2} {...props}>
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  )
+}
+
+export function IconTrash(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} {...props}>
+      <path d="M4 7h16M9.5 7V4.8h5V7M6.5 7l.9 12.2A1.8 1.8 0 0 0 9.2 21h5.6a1.8 1.8 0 0 0 1.8-1.8L17.5 7" />
+    </svg>
+  )
+}
+
+export function IconLogOut(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" {...common} {...props}>
+      <path d="M14.5 4.5H6.8A2.3 2.3 0 0 0 4.5 6.8v10.4a2.3 2.3 0 0 0 2.3 2.3h7.7" />
+      <path d="M15.5 8.5 19.5 12l-4 3.5M9.5 12h10" />
+    </svg>
+  )
+}
+
+export function IconChevronLeft(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} {...props}>
+      <path d="M15 5l-7 7 7 7" />
+    </svg>
+  )
+}
+
+export function IconClock(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.2V12l3.2 2" />
+    </svg>
+  )
+}
+
+export function IconPin(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} {...props}>
+      <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" />
+      <circle cx="12" cy="10" r="2.6" />
+    </svg>
+  )
+}

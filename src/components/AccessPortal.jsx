@@ -22,8 +22,8 @@ const PATHS = [
     desc: 'Pitch your startup to a curated network of angels, HNIs, family offices and ecosystem leaders.',
     highlights: ['A founder showcase slot', 'Warm investor introductions', 'Feedback from operators'],
     cta: 'Apply as a Founder',
-    loginRole: null,
-    loginNote: 'Founders are contacted directly — no portal account needed.',
+    loginRole: 'founder',
+    loginLabel: 'Already applied? Sign in',
   },
 ]
 

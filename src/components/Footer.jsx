@@ -46,7 +46,7 @@ export default function Footer() {
               <a href="#get-started">Join as an Investor</a>
               <a href="#get-started">Join as a Founder</a>
               <Link to="/login/investor">Investor Sign In</Link>
-              <Link to="/login/investor">Create an Investor Account</Link>
+              <Link to="/login/founder">Founder Sign In</Link>
               <Link to="/login/admin">Admin Login</Link>
             </nav>
           </div>

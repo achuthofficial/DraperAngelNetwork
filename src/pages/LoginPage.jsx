@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import ParticleField from '../components/ParticleField.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 import {
   IconInvestor,
+  IconFounder,
   IconShield,
   IconMail,
   IconLock,
@@ -36,6 +38,22 @@ const ROLES = {
       { value: '2–3', label: 'Startups showcased monthly' },
     ],
   },
+  founder: {
+    label: 'Founder',
+    fullLabel: 'Founder',
+    icon: IconFounder,
+    eyebrow: 'Founder Access',
+    canSignUp: true,
+    allowGoogle: true,
+    tagline: 'Learn how angel funding actually works, and see every showcase and session on the DAN calendar.',
+    quote: '“Understanding how investors decide changed how we raised.”',
+    quoteFooter: 'DraperU India Founder',
+    image: '/images/draper/founders-friday.jpeg',
+    stats: [
+      { value: '9', label: 'Learning modules' },
+      { value: '2–3', label: 'Startups showcased monthly' },
+    ],
+  },
   admin: {
     label: 'Admin',
     fullLabel: 'Administrator',
@@ -56,7 +74,11 @@ const ROLES = {
 
 export default function LoginPage() {
   const { role } = useParams()
+  const { isAuthed } = useAuth()
   const [mode, setMode] = useState('signin') // signin | signup
+
+  // Already signed in — no reason to show the form again.
+  if (isAuthed) return <Navigate to="/portal" replace />
 
   if (!ROLES[role]) {
     return <Navigate to="/login/investor" replace />
@@ -235,6 +257,9 @@ const fieldVariants = {
 }
 
 function AuthForm({ role, mode, roleLabel }) {
+  const { signIn } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
   const [showPassword, setShowPassword] = useState(false)
   const [status, setStatus] = useState('idle') // idle | loading | success
   const [error, setError] = useState('')
@@ -267,7 +292,17 @@ function AuthForm({ role, mode, roleLabel }) {
 
     setError('')
     setStatus('loading')
-    setTimeout(() => setStatus('success'), 1100)
+
+    /* Sign-up stays a request — DAN accounts are invite-curated, so the
+       honest outcome is "we'll be in touch." Sign-in opens the portal. */
+    setTimeout(() => {
+      if (isSignUp) {
+        setStatus('success')
+        return
+      }
+      signIn({ role, email, name: email.split('@')[0].replace(/[._-]+/g, ' ') })
+      navigate(location.state?.from?.pathname || '/portal', { replace: true })
+    }, 900)
   }
 
   if (status === 'success') {
