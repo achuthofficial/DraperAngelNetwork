@@ -21,6 +21,34 @@ export const DISCLAIMER =
 export const TRACK_INTRO =
   'Nine modules, roughly two and a half hours of reading. Start at the top: each one assumes only what came before it. By the end you should be able to read a pitch deck, tell a good term sheet from a bad one, and decide how much to put in without guessing.'
 
+/* The nine modules group into three parts. Members arrive knowing very
+   different amounts — a family-office principal may already know Part I
+   cold and want Part II — so the track is presented as three named parts
+   that can be entered independently, not a linear 1-of-9 course. */
+export const PARTS = [
+  {
+    id: 'ground',
+    numeral: 'I',
+    label: 'The ground rules',
+    blurb: 'What you are buying, how a round is put together, and what your slice actually means.',
+    slugs: ['what-is-angel-investing', 'how-startups-raise', 'equity-cap-tables-dilution'],
+  },
+  {
+    id: 'judging',
+    numeral: 'II',
+    label: 'Judging a single deal',
+    blurb: 'The three things you do to one opportunity: price it, check it, and read the paper.',
+    slugs: ['valuation', 'due-diligence', 'term-sheets'],
+  },
+  {
+    id: 'portfolio',
+    numeral: 'III',
+    label: 'Building a portfolio',
+    blurb: 'Sizing, pacing and exiting — the decisions that determine the result far more than any single deal.',
+    slugs: ['portfolio-construction', 'exits-and-timelines', 'making-the-decision'],
+  },
+]
+
 export const modules = [
   /* ---------------------------------------------------------------- 01 */
   {
@@ -232,6 +260,7 @@ export const modules = [
         ],
         example: {
           title: 'Dilution is not the same as loss',
+        visual: 'dilution',
           rows: [
             ['Before Series A', '2.0% of ₹5Cr = ₹10,00,000'],
             ['After Series A', '1.6% of ₹100Cr = ₹1,60,00,000'],
@@ -648,6 +677,7 @@ export const modules = [
         heading: 'A worked allocation',
         example: {
           title: 'A conservative first-time angel plan',
+        visual: 'powerlaw',
           rows: [
             ['Total allocation', '₹40,00,000 over 4 years'],
             ['Initial cheques', '₹1,00,000 × 24 = ₹24,00,000'],
@@ -902,3 +932,7 @@ export const findModule = (slug) => modules.find((m) => m.slug === slug)
 export const moduleIndex = (slug) => modules.findIndex((m) => m.slug === slug)
 export const totalMinutes = modules.reduce((sum, m) => sum + m.minutes, 0)
 export const totalCheckpoints = modules.reduce((sum, m) => sum + m.checkpoint.length, 0)
+
+export const partOf = (slug) => PARTS.find((p) => p.slugs.includes(slug))
+export const modulesIn = (part) => part.slugs.map((s) => findModule(s)).filter(Boolean)
+export const partMinutes = (part) => modulesIn(part).reduce((sum, m) => sum + m.minutes, 0)

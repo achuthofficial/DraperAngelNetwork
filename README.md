@@ -59,31 +59,48 @@ shown a dead end.
 
 ---
 
-## The learning track
+## The briefings
 
-Nine modules, ~141 minutes, 24 checkpoint questions, 47 glossary terms. Written
-for someone who has never bought a share of a private company, running in order
-so each module assumes only what came before it:
+Nine briefings in three parts, ~2h21m of reading, 24 checkpoint questions, 47
+glossary terms. Written for the audience the network actually serves —
+professionals aged roughly 30-60 who are expert in something other than
+venture — so the presentation is a **reference in three parts**, not a linear
+course:
 
-1. What angel investing actually is
-2. How a startup raises money — stages, SAFE/CCD/CCPS, syndicates
-3. Equity, cap tables and dilution — worked with real numbers
-4. Valuation — where the number comes from, and the return test
-5. Due diligence — a working checklist and the red flags
-6. Term sheets — the clauses that matter, and what a small cheque can negotiate
-7. Portfolio construction and the power law
-8. Exits, liquidity and realistic timelines
-9. Making the decision — the four-pass review and the pre-mortem
+| Part | Briefings | |
+|---|---|---|
+| **I — The ground rules** | 01 What angel investing is · 02 How a startup raises money · 03 Equity, cap tables and dilution | 45 min |
+| **II — Judging a single deal** | 04 Valuation · 05 Due diligence · 06 Term sheets | 53 min |
+| **III — Building a portfolio** | 07 Portfolio construction · 08 Exits and timelines · 09 Making the decision | 43 min |
 
-Each module ends with a checkpoint that scores answers and explains **why** each
-one is right, so "read it" and "understood it" are separate signals. Progress
-and scores persist per browser and drive the sidebar progress card.
+Each part is enterable on its own — someone who already raises or invests can
+go straight to Part II. Presentation decisions follow from the audience:
+
+- **Body copy is set at ~17px / 1.8 line-height at 82% ink**, against the 15px /
+  58% used for dashboard chrome. These are fifteen-minute reads and presbyopia
+  starts around 40.
+- **Nothing is gamified.** No completion percentage, no streak, no score out of
+  nine. Progress is recorded and shown as a bookmark ("you have read 4 of 9,
+  your place is saved"), never as a grade to chase.
+- **Every briefing opens with an "In brief" panel** — the outcome in one line
+  plus a jump list of what it covers — so a reader can decide in fifteen seconds
+  whether to spend the next quarter of an hour.
+- **A sticky contents column** tracks the reader's position on desktop (hidden
+  below 1180px, where the brief panel's jump list serves the same purpose).
+- **Worked examples are set as financial figures**, and the two that carry a
+  shape also render it: a before/after pair for dilution, and a 24-square unit
+  chart for the power law. The source table always stays on the page beside the
+  visual — this audience checks the arithmetic. Figure colour is one hue in
+  three ordinal steps, validated for monotone lightness, step separation and
+  contrast against the card surface.
+- **The checkpoint is framed as judgement, not examination** ("Check your
+  judgement" / "Show me the reasoning"), and the written explanation under each
+  answer is presented as the point of the exercise.
+- **A print stylesheet** ships, because this reader prints briefings.
 
 Content is educational only and carries a standing disclaimer. Tax and
-securities rules referenced in Module 08 change frequently — they are written at
-a deliberately stable level with an instruction to verify.
-
----
+securities rules referenced in Briefing 08 change frequently — they are written
+at a deliberately stable level with an instruction to verify.
 
 ## Data and persistence
 

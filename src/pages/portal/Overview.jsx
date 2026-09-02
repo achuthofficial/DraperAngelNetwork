@@ -119,7 +119,6 @@ function MemberOverview() {
 
   const done = modules.filter((m) => progress[m.slug]?.completed).length
   const next = modules.find((m) => !progress[m.slug]?.completed)
-  const pct = Math.round((done / modules.length) * 100)
 
   const scored = modules
     .filter((m) => progress[m.slug]?.completed)
@@ -141,28 +140,32 @@ function MemberOverview() {
         </h1>
         <p className="portal-lede">
           {done === 0
-            ? 'Start with the learning track. Nine modules, written from zero — by the end you will be able to read a deck, judge a term sheet, and size a cheque deliberately.'
+            ? 'Nine short briefings on judging an early-stage deal — written for people who are expert in something else. By the end you can read a deck, judge a term sheet, and size a cheque deliberately.'
             : done === modules.length
-              ? 'You have completed the track. The decision framework in Module 09 is the one to revisit before any real cheque.'
-              : `You are ${pct}% through the learning track. Pick up where you left off.`}
+              ? 'You have read all nine. The decision framework in Briefing 09 is the one to revisit before any real cheque.'
+              : `You have read ${done} of ${modules.length} briefings. Your place is saved.`}
         </p>
       </header>
 
       <div className="portal-stats">
-        <Stat value={`${done}/${modules.length}`} label="Modules completed" hint={`${pct}% of the track`} />
+        <Stat value={`${done}/${modules.length}`} label="Briefings read" hint={done === 0 ? 'Nothing read yet' : 'Your place is saved'} />
         <Stat
-          value={scored.total ? `${Math.round((scored.score / scored.total) * 100)}%` : '—'}
-          label="Checkpoint accuracy"
-          hint={scored.total ? `${scored.score} of ${scored.total} correct` : 'No checkpoints yet'}
+          value={scored.total ? `${scored.score}/${scored.total}` : '—'}
+          label="Checkpoint answers"
+          hint={scored.total ? 'Correct on first attempt' : 'No checkpoints yet'}
         />
         <Stat value={upcomingEvents.length} label="Upcoming events" hint={`${rsvps.length} registered`} />
-        <Stat value={`${totalMinutes}m`} label="Track length" hint="Total reading time" />
+        <Stat
+          value={`${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m`}
+          label="Reading in full"
+          hint="Across all nine briefings"
+        />
       </div>
 
       <div className="portal-grid-2">
         <section className="portal-panel portal-panel-feature">
           <div className="portal-panel-head">
-            <h2>{done === 0 ? 'Start here' : 'Continue the track'}</h2>
+            <h2>{done === 0 ? 'Start here' : 'Read next'}</h2>
           </div>
 
           {next ? (
@@ -179,15 +182,15 @@ function MemberOverview() {
                 <strong>After this you can:</strong> {next.outcome}
               </p>
               <Link to={`/portal/learn/${next.slug}`} className="btn btn-primary">
-                {done === 0 ? 'Begin Module 01' : `Open Module ${next.num}`} <IconArrowRight />
+                {done === 0 ? 'Open Briefing 01' : `Open Briefing ${next.num}`} <IconArrowRight />
               </Link>
             </motion.div>
           ) : (
             <div className="portal-next-module">
-              <h3>Track complete</h3>
+              <h3>You have read all nine</h3>
               <p>
-                You have worked through all nine modules. Module 09 holds the four-pass
-                review and the pre-mortem — worth re-reading before any real decision.
+                Briefing 09 holds the four-pass review and the pre-mortem — worth
+                re-reading before any real decision.
               </p>
               <Link to="/portal/learn/making-the-decision" className="btn btn-ghost">
                 Revisit the decision framework <IconArrowRight />
