@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext.jsx'
 import { modules, findModule, moduleIndex, partOf, DISCLAIMER } from '../../data/learning.js'
 import { FIGURES } from '../../components/portal/Figures.jsx'
+import { Photo } from '../../components/portal/Photo.jsx'
+import { imageFor } from '../../data/imagery.js'
 import {
   IconArrowRight,
   IconChevronLeft,
@@ -282,6 +284,10 @@ export default function LearnModule() {
           )}
         </div>
       </header>
+
+      {/* Context photography from the house. Captioned for what it actually
+          shows, never as an illustration of the briefing's subject. */}
+      <Photo image={imageFor(slug)} className="lm-hero" priority />
 
       {/* The 60-second version, for a reader deciding whether to spend the
           next quarter of an hour on this. */}

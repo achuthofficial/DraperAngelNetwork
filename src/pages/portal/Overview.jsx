@@ -140,9 +140,9 @@ function MemberOverview() {
         </h1>
         <p className="portal-lede">
           {done === 0
-            ? 'Nine short briefings on judging an early-stage deal — written for people who are expert in something else. By the end you can read a deck, judge a term sheet, and size a cheque deliberately.'
+            ? `${modules.length} short briefings on judging an early-stage deal — written for people who are expert in something else. By the end you can read a deck, judge a term sheet, and size a cheque deliberately.`
             : done === modules.length
-              ? 'You have read all nine. The decision framework in Briefing 09 is the one to revisit before any real cheque.'
+              ? 'You have read them all. The decision framework in Briefing 09 is the one to revisit before any real cheque.'
               : `You have read ${done} of ${modules.length} briefings. Your place is saved.`}
         </p>
       </header>
@@ -158,7 +158,7 @@ function MemberOverview() {
         <Stat
           value={`${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m`}
           label="Reading in full"
-          hint="Across all nine briefings"
+          hint={`Across all ${modules.length} briefings`}
         />
       </div>
 
@@ -187,7 +187,7 @@ function MemberOverview() {
             </motion.div>
           ) : (
             <div className="portal-next-module">
-              <h3>You have read all nine</h3>
+              <h3>You have read them all</h3>
               <p>
                 Briefing 09 holds the four-pass review and the pre-mortem — worth
                 re-reading before any real decision.

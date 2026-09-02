@@ -4,6 +4,12 @@
   --font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* Long-form reading face. Fraunces is a display serif — lovely at 40px,
+     tiring at 17px over a quarter of an hour. Source Serif 4 is drawn for
+     continuous text on screen: taller x-height, open counters, an optical-size
+     axis that thickens the strokes at body sizes. Used for the briefings'
+     prose only; chrome stays on the sans. */
+  --font-read: 'Source Serif 4', 'Iowan Old Style', 'Charter', Georgia, 'Times New Roman', serif;
   --font-serif: var(--font-display); /* legacy alias, keeps existing rules pointed at the new display face */
 
   /* surface ramp — deep to lifted, one accent derived from DAN's own Draper-lineage lavender */

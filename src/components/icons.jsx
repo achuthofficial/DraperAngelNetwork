@@ -328,3 +328,19 @@ export function IconPin(props) {
     </svg>
   )
 }
+
+export function IconExpand(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} {...props}>
+      <path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" />
+    </svg>
+  )
+}
+
+export function IconClose(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...common} strokeWidth={2} {...props}>
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
+  )
+}

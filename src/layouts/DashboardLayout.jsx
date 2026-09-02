@@ -89,9 +89,9 @@ export default function DashboardLayout() {
             <span className="portal-side-card-label">Your briefings</span>
             <p>
               {done === 0
-                ? 'Nine short briefings on judging an early-stage deal. Start wherever is useful.'
+                ? `${modules.length} short briefings on judging an early-stage deal. Start wherever is useful.`
                 : done === modules.length
-                  ? 'You have read all nine. Briefing 09 is the one to revisit before a real decision.'
+                  ? 'You have read them all. Briefing 09 is the one to revisit before a real decision.'
                   : `You have read ${done} of ${modules.length}. Your place is saved.`}
             </p>
             <Link to="/portal/learn" className="portal-side-card-link">

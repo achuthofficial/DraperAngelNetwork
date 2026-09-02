@@ -9,6 +9,8 @@ import {
   totalMinutes,
   DISCLAIMER,
 } from '../../data/learning.js'
+import { imageForPart } from '../../data/imagery.js'
+import { PhotoBand } from '../../components/portal/Photo.jsx'
 import { IconArrowRight, IconCheck, IconClock } from '../../components/icons.jsx'
 
 /* The reader is a working professional in their forties or fifties who may
@@ -28,6 +30,8 @@ function PartBlock({ part, index, progress }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: index * 0.08, ease: [0.2, 0.8, 0.2, 1] }}
     >
+      <PhotoBand image={imageForPart(part.id)} />
+
       <header className="track-part-head">
         <span className="track-part-numeral" aria-hidden="true">
           {part.numeral}
@@ -100,7 +104,7 @@ export default function LearnIndex() {
           Everything you need to judge an early-stage deal &mdash; and nothing you don&rsquo;t.
         </h1>
         <p className="track-lede">
-          Nine short briefings, written for people who are expert in something else. No
+          Twelve short briefings, written for people who are expert in something else. No
           jargon without a definition, every rule of thumb worked through with real
           rupee figures, and a set of questions at the end of each one so you can tell
           whether it landed.
@@ -109,13 +113,18 @@ export default function LearnIndex() {
         <div className="track-head-bar">
           <div className="track-head-facts">
             <span>
-              <strong>3</strong> parts
+              <strong>{PARTS.length}</strong> parts
             </span>
             <span>
-              <strong>9</strong> briefings
+              <strong>{modules.length}</strong> briefings
             </span>
             <span>
-              <strong>{Math.round(totalMinutes / 60)}h {totalMinutes % 60}m</strong> total reading
+              {/* floor, not round: 270 minutes is 4h30m, and Math.round(4.5)
+                  would print it as 5h 30m. */}
+              <strong>
+                {Math.floor(totalMinutes / 60)}h {totalMinutes % 60}m
+              </strong>{' '}
+              total reading
             </span>
           </div>
 
@@ -127,7 +136,7 @@ export default function LearnIndex() {
               </Link>
             ) : (
               <span className="track-complete">
-                <IconCheck /> You have read all nine
+                <IconCheck /> You have read all {modules.length}
               </span>
             )}
             {read > 0 && (
