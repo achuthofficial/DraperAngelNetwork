@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { IconClose, IconExpand } from '../icons.jsx'
 
-/* A photograph from the DraperU India house, enlargeable.
+/* A topic illustration for a briefing, enlargeable.
 
    The overlay is a native <dialog> opened with showModal(), which gives us
    Escape-to-close, focus moved into the dialog and restored on close, the
@@ -62,13 +62,10 @@ export function Photo({ image, className = '', priority = false }) {
         <span className="photo-expand" aria-hidden="true">
           <IconExpand />
         </span>
-        <span className="sr-only">Enlarge this photograph</span>
+        <span className="sr-only">Enlarge this illustration</span>
       </button>
 
-      <figcaption className="photo-caption">
-        <span className="photo-source">DraperU India</span>
-        {image.caption}
-      </figcaption>
+      <figcaption className="photo-caption">{image.caption}</figcaption>
 
       <dialog ref={dialogRef} className="photo-dialog" onClick={onDialogClick}>
         <div className="photo-dialog-panel">
@@ -80,18 +77,15 @@ export function Photo({ image, className = '', priority = false }) {
           {open && (
             <img src={image.src} alt={image.caption} width={image.w} height={image.h} />
           )}
-          <p className="photo-dialog-caption">
-            <span className="photo-source">DraperU India</span>
-            {image.caption}
-          </p>
+          <p className="photo-dialog-caption">{image.caption}</p>
         </div>
       </dialog>
     </figure>
   )
 }
 
-/* Non-interactive variant: a wide strip behind a part heading. No dialog,
-   because there is nothing in a banner a reader needs a closer look at. */
+/* Non-interactive variant: the small mark beside a part heading. No dialog,
+   because there is nothing in it a reader needs a closer look at. */
 export function PhotoBand({ image }) {
   if (!image) return null
   return (
@@ -104,7 +98,6 @@ export function PhotoBand({ image }) {
         loading="lazy"
         decoding="async"
       />
-      <span className="photo-band-scrim" aria-hidden="true" />
     </div>
   )
 }

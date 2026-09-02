@@ -101,20 +101,32 @@ go straight to Part II. Presentation decisions follow from the audience:
   evenly across the four positions, so guessing one letter scores 25%.
 - **A print stylesheet** ships, because this reader prints briefings.
 
-### Photography
+### Illustrations
 
-Each briefing carries one photograph from the DraperU India house, and each
-part a band image; `src/data/imagery.js` holds the registry. Captions are the
-factual descriptions of what each photograph shows, carried over verbatim from
-the source posts — never rewritten to match the briefing they sit above. The
-images are context, not illustration.
+Each briefing carries one topic-matched illustration and each part a small
+mark; `src/data/imagery.js` holds the registry and `public/images/learning/`
+the files. They are generic artwork rather than photographs of the network's
+own events — a briefing about term sheets shows a term sheet, not a hackathon.
 
-The three advisory-council portraits are deliberately excluded: they show named
-individuals, one a serving public official, and a face above a briefing implies
-that person authored or endorses it. Hero images open in a native `<dialog>`
-lightbox, so Escape, focus handling and inertness come from the platform;
-intrinsic dimensions are recorded on every `<img>`, and measured CLS on the
-index is 0.000.
+Source is [unDraw](https://undraw.co), obtained through the npm package
+`undraw-svg` v2.0.0. unDraw art is free for commercial use; the distributing
+package is MIT and its notice is kept beside the files, since MIT requires the
+notice to travel with redistributed copies.
+
+Every file is recoloured from unDraw's light-background palette into the
+portal's dark ramp — colours are remapped by luminance and saturation into four
+tones, documented in `public/images/learning/README.md`. Two things that need
+doing and are easy to miss: unDraw's dark ink is blue-tinted, so a saturation
+test must come *after* the luminance test or the line work is misread as an
+accent and vanishes; and the package marks its brand accent `fill="currentColor"`,
+which resolves to black in an `<img>` (an independent document inherits no page
+CSS), so it has to be bound explicitly.
+
+Illustrations are `object-fit: contain` rather than `cover` — cropping a
+drawing is not the same as cropping a photograph. Heroes open in a native
+`<dialog>` lightbox, so Escape, focus handling and inertness come from the
+platform. Intrinsic dimensions are recorded on every `<img>`; measured CLS on
+the index is 0.000. All sixteen files together are ~165 KB.
 
 Content is educational only and carries a standing disclaimer. Briefing 11
 deliberately quotes **no** tax rates or thresholds: Indian rules change with
